@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="myGoods_myConfirm">我的确权</string>
+    <string name="myGoods_mySell">我的上架</string>
+    <string name="myGoods_setPrice">上架</string>
+    <string name="myGoods_underImg">确认下架</string>
+
+    <string name="myGoods_sellNote1">♦&#8194;确权的图片才能上架</string>
+    <string name="myGoods_sellNote2">♦&#8194;长按选择上架图片</string>
+    <string name="myGoods_underNote1">♦&#8194;点击图片修改上架信息</string>
+    <string name="myGoods_underNote2">♦&#8194;长按选择下架图片</string>
+
+
+    <string name="myGoods_noConfirmImg">空空如也,快去确权图片吧</string>
+    <string name="myGoods_noSellImg">空空如也,快去上架图片吧</string>
+    <string name="myGoods_noResponse">服务器开小差啦,刷新试试吧</string>
+
+</resources>

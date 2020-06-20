@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--用户信息栏-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.xdlr.maskview.util.CircleImageView
+                    android:id="@+id/item_displayHall_user_headView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/head" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_displayHall_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#de000000"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/display_hall_fans" />
+
+                        <TextView
+                            android:id="@+id/item_displayHall_fans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/display_hall_count"
+                            android:textColor="#4169E1"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="1dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/display_hall_like" />
+
+                        <TextView
+                            android:id="@+id/item_displayHall_her_like"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/display_hall_count"
+                            android:textColor="#4169E1"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5" />
+
+                <Button
+                    android:layout_width="64dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bt_like"
+                    android:text="@string/display_hall_like"
+                    android:textColor="#f44336"
+                    android:textSize="11sp"
+                    tools:ignore="SmallSp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+
+            <com.xdlr.maskview.util.TabGridView
+                android:id="@+id/item_displayHall_gridView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="2dp"
+                android:verticalSpacing="2dp" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
