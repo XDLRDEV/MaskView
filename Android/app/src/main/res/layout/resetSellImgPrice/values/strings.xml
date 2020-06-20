@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="money_note">¥&#160;</string>
+    <string name="resetSellPrice_date" tools:ignore="TypographyDashes">2010–01-01</string>
+    <string name="resetSellPrice_sellerName">卖家姓名</string>
+    <string name="resetSellPrice_text_by">By&#160;:&#160;</string>
+    <string name="resetSellPrice_ok">确定</string>
+    <string name="resetSellPrice_quit">取消</string>
+    <string name="resetSellPrice_changePrice">改价</string>
+
+</resources>

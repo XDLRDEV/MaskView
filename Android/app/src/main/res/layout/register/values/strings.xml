@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_setPwd">设置密码</string>
+    <string name="register_inputPwd">请输入密码</string>
+    <string name="register_confirmPwd">请确认密码</string>
+    <string name="register_over">完成</string>
+</resources>

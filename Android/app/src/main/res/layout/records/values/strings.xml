@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="purchaseRecords">购买记录</string>
+    <string name="saleRecords">出售记录</string>
+
+    <string name="item_purchaseRecords_tag1">支出:&#160;</string>
+    <string name="item_purchaseRecords_tag2">时间:&#160;</string>
+    <string name="item_saleRecords_tag1">收益:&#160;</string>
+    <string name="item_saleRecords_tag2">时间:&#160;</string>
+
+    <string name="no_purchaseRecords">无购买记录</string>
+    <string name="no_saleRecords">无销售记录</string>
+
+    <string name="no_response">服务器未响应</string>
+</resources>

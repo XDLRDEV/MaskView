@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="resetPwd">重置密码</string>
+    <string name="resetPwd_confirmPwd">请确认密码</string>
+    <string name="resetPwd_checkPwd">密码至少6个字符,不能包含空格和符号。</string>
+    <string name="resetPwd_OK">保存</string>
+</resources>

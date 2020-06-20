@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shopping_cart">购物车</string>
+    <string name="all_selected">&#8194;全选</string>   <!--汉字的宽空格-->
+    <string name="selected_money">合计&#160;:&#160;</string>   <!--窄空格-->
+    <string name="init_selected_count">共0件</string>
+    <string name="init_selected_money">¥&#160;0</string>
+    <string name="count_money">去结算</string>
+    <string name="item_delete_child">删除</string>
+    <string name="item_text_note">不可退款</string>
+
+    <string name="empty_shoppingCart">购物车是空的,快去添加吧</string>
+    <string name="request_fail">请求失败,请重试</string>
+</resources>
