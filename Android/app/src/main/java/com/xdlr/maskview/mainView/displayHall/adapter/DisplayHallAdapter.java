@@ -139,11 +139,15 @@ public class DisplayHallAdapter extends RecyclerView.Adapter<DisplayHallAdapter.
                 finalImgList.addAll(allImgUrl);
                 setGridNumColumns(imgListSize);
             }
+<<<<<<< HEAD
 
             Log.e("------------", "finalImgList的图片数量: " + finalImgList);
 
             DisplayHallGridAdapter gridAdapter = new DisplayHallGridAdapter(myContext, finalImgList, screenWidth, screenHeight);
             //GridViewAdapter gridViewAdapter = new GridViewAdapter(myContext, gridImage.imgArr, screenWidth, screenHeight);
+=======
+            DisplayHallGridAdapter gridAdapter = new DisplayHallGridAdapter(myContext, finalImgList, screenWidth, screenHeight);
+>>>>>>> '测试'
             gridView.setAdapter(gridAdapter);
         }
     }

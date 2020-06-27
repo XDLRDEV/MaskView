@@ -1,1 +1,3 @@
-数字内容分布式确权交易链——Android客户端
+# MaskView
+
+安卓README.md

@@ -35,6 +35,10 @@
                 android:drawableStart="@mipmap/topic"
                 android:drawablePadding="10dp"
                 android:hint="@string/item_setSellImgInfo_topic"
+<<<<<<< HEAD
+=======
+                android:maxLength="6"
+>>>>>>> '测试'
                 android:singleLine="true"
                 android:textSize="14sp" />
 
@@ -48,7 +52,11 @@
                 android:drawablePadding="10dp"
                 android:hint="@string/item_setSellImgInfo_price"
                 android:inputType="number"
+<<<<<<< HEAD
                 android:maxLength="4"
+=======
+                android:maxLength="3"
+>>>>>>> '测试'
                 android:singleLine="true"
                 android:textSize="14sp" />
 

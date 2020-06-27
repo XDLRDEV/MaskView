@@ -1,19 +1,30 @@
 package com.xdlr.maskview.mainView.displayHall.adapter;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+=======
+import android.content.Context;
+import android.content.Intent;
+>>>>>>> '测试'
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+<<<<<<< HEAD
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
 import com.bumptech.glide.Glide;
 import com.xdlr.maskview.R;
+=======
+import com.bumptech.glide.Glide;
+import com.xdlr.maskview.R;
+import com.xdlr.maskview.dao.AvertTwoTouch;
+>>>>>>> '测试'
 import com.xdlr.maskview.mainView.purchaseView.PurchaseView;
 
 import java.util.ArrayList;
@@ -90,9 +101,17 @@ public class DisplayHallGridAdapter extends BaseAdapter {
         viewHodler.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 Intent intent = new Intent(myContext, PurchaseView.class);
                 intent.putExtra("selectedImgUrl", datas.get(position));
                 myContext.startActivity(intent);
+=======
+                if (AvertTwoTouch.isFastClick()) {
+                    Intent intent = new Intent(myContext, PurchaseView.class);
+                    intent.putExtra("selectedImgUrl", datas.get(position));
+                    myContext.startActivity(intent);
+                }
+>>>>>>> '测试'
             }
         });
 

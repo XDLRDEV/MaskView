@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+<<<<<<< HEAD
+=======
+import android.annotation.SuppressLint;
+>>>>>>> '测试'
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,10 +26,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.xdlr.maskview.R;
 
+=======
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+
+import com.xdlr.maskview.R;
+>>>>>>> '测试'
 import com.xdlr.maskview.dao.ImageUriUtil;
 import com.xdlr.maskview.dao.SPUtils;
 import com.xdlr.maskview.dao.UserRequest;
@@ -66,8 +78,19 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
     private SharedPreferences sprfMain;
     SharedPreferences.Editor editorMain;
 
+<<<<<<< HEAD
     private UserRequest ur;
 
+=======
+    private RadioButton radioButton_myGoods;
+    private RadioButton radioButton_mine;
+    private RadioButton radioButton_displayHall;
+    private RadioButton radioButton_shoppingCart;
+
+    private UserRequest ur;
+
+    @SuppressLint("CommitPrefEdits")
+>>>>>>> '测试'
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,24 +105,51 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
         iv_confirmImg = findViewById(R.id.bt_ConfirmImg);
         iv_confirmImg.setOnClickListener(this);
 
+<<<<<<< HEAD
+=======
+        radioButton_displayHall = findViewById(R.id.radioBt_displayHall);
+        radioButton_myGoods = findViewById(R.id.radioBt_mgGoods);
+        radioButton_mine = findViewById(R.id.radioBt_mine);
+        radioButton_shoppingCart = findViewById(R.id.radioBt_shoppingCart);
+
+>>>>>>> '测试'
         initFragment();
 
         int fragmentID = getIntent().getIntExtra("fragmentID", 16);
         if (fragmentID == 3) {
             //底部导航栏选中我的
+<<<<<<< HEAD
             RadioButton radioButton_mine = findViewById(R.id.radioBt_mine);
+=======
+            radioButton_displayHall.setEnabled(true);
+            radioButton_myGoods.setEnabled(true);
+            radioButton_mine.setEnabled(true);
+            radioButton_shoppingCart.setEnabled(true);
+            iv_confirmImg.setEnabled(true);
+>>>>>>> '测试'
             radioButton_mine.setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_fragment, frag_mine).show(frag_mine).commit();
             lastFragment = 3;
         } else if (fragmentID == 1) {
             //底部导航栏选中作品
+<<<<<<< HEAD
             RadioButton radioButton_myGoods = findViewById(R.id.radioBt_mgGoods);
+=======
+            radioButton_displayHall.setEnabled(true);
+            radioButton_myGoods.setEnabled(true);
+            radioButton_mine.setEnabled(true);
+            radioButton_shoppingCart.setEnabled(true);
+            iv_confirmImg.setEnabled(true);
+>>>>>>> '测试'
             radioButton_myGoods.setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_fragment, frag_myGoods).show(frag_myGoods).commit();
             lastFragment = 1;
         } else if (fragmentID == 0) {
             //底部导航栏选中展厅
+<<<<<<< HEAD
             RadioButton radioButton_displayHall = findViewById(R.id.radioBt_displayHall);
+=======
+>>>>>>> '测试'
             radioButton_displayHall.setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.fl_fragment, frag_displayHall).show(frag_displayHall).commit();
             lastFragment = 0;
@@ -118,7 +168,10 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
                 }
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> '测试'
         checkLoginBefore();
     }
 

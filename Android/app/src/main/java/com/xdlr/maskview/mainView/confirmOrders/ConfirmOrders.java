@@ -156,7 +156,16 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
     //购买图片
     private void purchaseImgNow() {
         purchaseCount = 1;
+<<<<<<< HEAD
         final File purchaseImgFile = new File(SDCardPath + "/MaskView购买");
+=======
+        final File purchaseImgFile;
+        if (Build.VERSION.SDK_INT >= 29) {
+            purchaseImgFile = new File(myContext.getExternalFilesDir(null).getAbsolutePath());
+        } else {
+            purchaseImgFile = new File(SDCardPath + "/MaskView购买");
+        }
+>>>>>>> '测试'
         if (!purchaseImgFile.exists()) {
             boolean make = purchaseImgFile.mkdirs();
             if (!make) {
@@ -164,27 +173,45 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                 return;
             }
         }
+<<<<<<< HEAD
         //转化成传递数据的集合,便于循环
         transJsonInfo();
         //等待框
+=======
+        // 转化成传递数据的集合,便于循环
+        transJsonInfo();
+        // 等待框
+>>>>>>> '测试'
         loadingAlert();
         new Thread(new Runnable() {
             @Override
             public void run() {
+<<<<<<< HEAD
                 String afterMarkImgName; //水印后的图片名称
                 String imgHttpUrl; //图片地址
+=======
+                // 水印后的图片名称
+                String afterMarkImgName;
+                // 图片地址
+                String imgHttpUrl;
+>>>>>>> '测试'
                 for (int i = 0; i < sendDatas.size(); i++) {
                     FileOutputStream fos;
                     imgHttpUrl = UtilParameter.IMAGES_IP + sendDatas.get(i).imgPath;
                     Bitmap bitmap = urlTransBitmap.returnBitMap(imgHttpUrl, myContext);
                     Bitmap dstbmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
                     try {
+<<<<<<< HEAD
                         //加水印, 1是确权,2是交易
+=======
+                        // 加水印, 1是确权,2是交易
+>>>>>>> '测试'
                         Bitmap myBitmap = robust.robustWatermark(dstbmp, UtilParameter.myPhoneNumber, UtilParameter.DEAL_FLAG);
                         String key = robust.getKey();
                         afterMarkImgName = "tra-" + UtilParameter.myPhoneNumber + "-" + sendDatas.get(i).imgName;
                         File file = new File(purchaseImgFile.getPath() + "/" + afterMarkImgName);
                         String sellerName = sendDatas.get(i).imgOwnerName;
+<<<<<<< HEAD
                         //上架的图片名称
                         String sell_imgName = sendDatas.get(i).imgPath.substring(sendDatas.get(i).imgPath.lastIndexOf("/") + 1);
 
@@ -197,6 +224,15 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                         Log.e("--------", result);
                         if (result.contains("true")) {
                             //购买成功后再存入相册
+=======
+                        // 上架的图片名称
+                        String sell_imgName = sendDatas.get(i).imgPath.substring(sendDatas.get(i).imgPath.lastIndexOf("/") + 1);
+                        // 上传服务器
+                        String result = ur.purchaseImg(sellerName, sell_imgName, sendDatas.get(i).imgPrice, key, UtilParameter.myToken);
+                        Log.e("--------", result);
+                        if (result.contains("true")) {
+                            // 购买成功后再存入相册
+>>>>>>> '测试'
                             fos = new FileOutputStream(file);
                             myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                             fos.close();
@@ -204,16 +240,27 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                             if (Build.VERSION.SDK_INT >= 29) {
                                 GetSDPath.scanFile(file, myContext);
                             } else {
+<<<<<<< HEAD
                                 //发送广播,刷新图库
+=======
+                                // 发送广播,刷新图库
+>>>>>>> '测试'
                                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                 Uri uri = Uri.fromFile(file);
                                 intent.setData(uri);
                                 sendBroadcast(intent);
                             }
+<<<<<<< HEAD
                             //购买完成后,刷新我的积分
                             myPoints = (myPoints - Integer.parseInt(sendDatas.get(i).imgPrice));
                         } else {
                             //购买失败
+=======
+                            // 购买完成后,刷新我的积分
+                            myPoints = (myPoints - Integer.parseInt(sendDatas.get(i).imgPrice));
+                        } else {
+                            // 购买失败
+>>>>>>> '测试'
                             confirmWaitingHandler.sendEmptyMessage(PURCHASE_FAIL);
                             return;
                         }
@@ -244,6 +291,7 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                 sendDatas.add(data);
             }
         }
+<<<<<<< HEAD
         Log.e("---------", "总数据: " + sendDatas.size());
         for (int i = 0; i < sendDatas.size(); i++) {
             Log.e("---------", "数据: " + sendDatas.get(i).imgOwnerName
@@ -251,6 +299,8 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                     + "   " + sendDatas.get(i).imgPrice
                     + "   " + sendDatas.get(i).imgPath);
         }
+=======
+>>>>>>> '测试'
     }
 
     //显示购买进度提示
@@ -309,6 +359,10 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
                         //跳转我的购买界面
                         Intent intent = new Intent(myContext, MyPurchase.class);
                         startActivity(intent);
+<<<<<<< HEAD
+=======
+                        finish();
+>>>>>>> '测试'
                     }
                 }).create();
         alertDialog.show();
