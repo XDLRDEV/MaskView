@@ -1,58 +1,96 @@
 package com.xdlr.maskview.dao;
 
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+=======
+>>>>>>> '测试'
 import java.util.regex.Pattern;
 
 public class CheckString {
 
     /**
+<<<<<<< HEAD
     * 正则表达式:验证用户名(不包含中文和特殊字符)如果用户名使用手机号码或邮箱 则结合手机号验证和邮箱验证
     */
     public static final String REGEX_USERNAME = "^[a-zA-Z]\\w{5,17}$";
+=======
+     * 正则表达式:验证用户名(不包含中文和特殊字符)如果用户名使用手机号码或邮箱 则结合手机号验证和邮箱验证
+     */
+    private static final String REGEX_USERNAME = "^[a-zA-Z]\\w{5,17}$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证密码(不包含特殊字符)
      */
+<<<<<<< HEAD
     public static final String REGEX_PASSWORD = "^[a-zA-Z0-9]{6,16}$";
+=======
+    private static final String REGEX_PASSWORD = "^[a-zA-Z0-9]{6,16}$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证手机号
      */
+<<<<<<< HEAD
     public static final String REGEX_MOBILE = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57]|19[189])[0-9]{8}$";
+=======
+    private static final String REGEX_MOBILE = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57]|19[189])[0-9]{8}$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证邮箱
      */
+<<<<<<< HEAD
     public static final String REGEX_EMAIL = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+=======
+    private static final String REGEX_EMAIL = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证汉字(1-9个汉字) {1,9} 自定义区间
      */
+<<<<<<< HEAD
     public static final String REGEX_CHINESE = "^[\u4e00-\u9fa5]{1,9}$";
+=======
+    private static final String REGEX_CHINESE = "^[\u4e00-\u9fa5]{1,9}$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证身份证
      */
+<<<<<<< HEAD
     public static final String REGEX_ID_CARD = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$";
+=======
+    private static final String REGEX_ID_CARD = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证URL
      */
+<<<<<<< HEAD
     public static final String REGEX_URL = "http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?";
+=======
+    private static final String REGEX_URL = "http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?";
+>>>>>>> '测试'
 
     /**
      * 正则表达式:验证IP地址
      */
+<<<<<<< HEAD
     public static final String REGEX_IP_ADDR = "(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})";
+=======
+    private static final String REGEX_IP_ADDR = "(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})";
+>>>>>>> '测试'
 
     /**
      * 正则表达式,全部是数字
      */
+<<<<<<< HEAD
     public static final String REGEX_COUNT = "^-?[0-9]+";
 
     /**
@@ -67,6 +105,23 @@ public class CheckString {
 
     /**
      * 校验用户名
+=======
+    private static final String REGEX_COUNT = "^-?[0-9]+";
+
+    /**
+     * 校验数字
+     *
+     * @param s
+     * @return
+     */
+    public static boolean isAllCount(String s) {
+        return Pattern.matches(REGEX_COUNT, s);
+    }
+
+    /**
+     * 校验用户名
+     *
+>>>>>>> '测试'
      * @param username
      * @return 校验通过返回true，否则返回false
      */
@@ -76,6 +131,10 @@ public class CheckString {
 
     /**
      * 校验密码
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param password
      * @return 校验通过返回true，否则返回false
      */
@@ -85,6 +144,10 @@ public class CheckString {
 
     /**
      * 校验手机号
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param mobile
      * @return 校验通过返回true，否则返回false
      */
@@ -94,6 +157,10 @@ public class CheckString {
 
     /**
      * 校验邮箱
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param email
      * @return 校验通过返回true，否则返回false
      */
@@ -103,6 +170,10 @@ public class CheckString {
 
     /**
      * 校验汉字
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param chinese
      * @return 校验通过返回true，否则返回false
      */
@@ -112,6 +183,10 @@ public class CheckString {
 
     /**
      * 校验身份证
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param idCard
      * @return 校验通过返回true，否则返回false
      */
@@ -121,6 +196,10 @@ public class CheckString {
 
     /**
      * 校验URL
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param url
      * @return 校验通过返回true，否则返回false
      */
@@ -130,6 +209,10 @@ public class CheckString {
 
     /**
      * 校验IP地址
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> '测试'
      * @param ipAddress
      * @return
      */

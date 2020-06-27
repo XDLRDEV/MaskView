@@ -79,7 +79,11 @@
 
             <TextView
                 android:id="@+id/note1_confirm"
+<<<<<<< HEAD
                 android:layout_width="match_parent"
+=======
+                android:layout_width="wrap_content"
+>>>>>>> '测试'
                 android:layout_height="25dp"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
@@ -88,7 +92,11 @@
 
             <TextView
                 android:id="@+id/note2_confirm"
+<<<<<<< HEAD
                 android:layout_width="match_parent"
+=======
+                android:layout_width="wrap_content"
+>>>>>>> '测试'
                 android:layout_height="25dp"
                 android:layout_below="@+id/note1_confirm"
                 android:gravity="center_vertical"
@@ -115,6 +123,7 @@
 
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+<<<<<<< HEAD
             <Button
                 android:id="@+id/bt_myGoods_setInfo"
                 android:layout_width="match_parent"
@@ -125,6 +134,39 @@
                 android:text="@string/myGoods_setPrice"
                 android:textColor="#ffffff"
                 android:textSize="16sp" />
+=======
+            <LinearLayout
+                android:id="@+id/layout_myGoods_myConfirm_longClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_myGoods_closeSellLongClick"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_close_long_click"
+                    android:text="@string/myGoods_closeLongClick"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bt_myGoods_setInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_sell"
+                    android:text="@string/myGoods_setPrice"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+>>>>>>> '测试'
         </RelativeLayout>
 
 
@@ -137,7 +179,11 @@
 
             <TextView
                 android:id="@+id/note1_mySell"
+<<<<<<< HEAD
                 android:layout_width="match_parent"
+=======
+                android:layout_width="wrap_content"
+>>>>>>> '测试'
                 android:layout_height="25dp"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
@@ -146,7 +192,11 @@
 
             <TextView
                 android:id="@+id/note2_mySell"
+<<<<<<< HEAD
                 android:layout_width="match_parent"
+=======
+                android:layout_width="wrap_content"
+>>>>>>> '测试'
                 android:layout_height="25dp"
                 android:layout_below="@+id/note1_mySell"
                 android:gravity="center_vertical"
@@ -155,10 +205,17 @@
                 tools:ignore="RtlSymmetry" />
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
+<<<<<<< HEAD
                 android:layout_below="@+id/note2_mySell"
                 android:id="@+id/smartRefresh_myGoods_mySell"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+=======
+                android:id="@+id/smartRefresh_myGoods_mySell"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/note2_mySell">
+>>>>>>> '测试'
 
                 <com.scwang.smartrefresh.layout.header.ClassicsHeader
                     android:layout_width="match_parent"
@@ -172,6 +229,7 @@
 
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+<<<<<<< HEAD
             <Button
                 android:id="@+id/bt_myGoods_under"
                 android:layout_width="match_parent"
@@ -186,6 +244,42 @@
 
         </RelativeLayout>
 
+=======
+
+            <LinearLayout
+                android:id="@+id/layout_myGoods_mySell_longClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_myGoods_closeUnderLongClick"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_close_long_click"
+                    android:text="@string/myGoods_closeLongClick"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bt_myGoods_under"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_sell"
+                    android:text="@string/myGoods_underImg"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+>>>>>>> '测试'
 
         <!--确权图片为空提示-->
         <LinearLayout
