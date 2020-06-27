@@ -1,18 +1,7 @@
 package com.xdlr.maskview.mainView.resetSellPriceTopic;
 
-<<<<<<< HEAD
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.palette.graphics.Palette;
-
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-=======
-import android.content.Context;
-import android.content.DialogInterface;
->>>>>>> '测试'
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -38,14 +27,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-=======
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.palette.graphics.Palette;
 
->>>>>>> '测试'
 import com.bumptech.glide.Glide;
 import com.xdlr.maskview.R;
 import com.xdlr.maskview.dao.UrlTransBitmap;
@@ -55,10 +41,6 @@ import com.xdlr.maskview.util.UtilParameter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-<<<<<<< HEAD
-import java.util.concurrent.ExecutionException;
-=======
->>>>>>> '测试'
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -75,10 +57,6 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
     private TextView tv_resetSellPrice_sellDate;
     private View headerView, footerView;
     private RelativeLayout relativeLayout;
-<<<<<<< HEAD
-
-=======
->>>>>>> '测试'
     private Bitmap bgBitmap;
     private Canvas mCanvas;
     private Paint mPaint;
@@ -89,10 +67,6 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
     private final static int RESET_PRICE_FAIL = 1;
     private final static int RESET_NO_RESPONSE = 2;
     private AlertDialog alertDialog;
-<<<<<<< HEAD
-
-=======
->>>>>>> '测试'
     private Context myContext;
     private UserRequest ur;
     private String imgOwner;
@@ -100,10 +74,6 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
     private String imgPrice;
     private String imgTopic;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> '测试'
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,11 +108,7 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
         screenWidth = point.x;
         screenHeight = point.y;
 
-<<<<<<< HEAD
-        //点击图片显隐图片信息
-=======
         // 点击图片显隐图片信息
->>>>>>> '测试'
         iv_mySellImg.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {
@@ -159,19 +125,11 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
         tv_resetSellPrice_imgTopic.setText(imgTopic);
         tv_resetSellPrice_sellerName.setText(imgOwner);
         tv_resetSellPrice_sellDate.setText(sellDate);
-<<<<<<< HEAD
-        //网络加载图片
-        Glide.with(this).load(resetPriceImgUrl).into(iv_mySellImg);
-    }
-
-    //接收传回过来的图片地址
-=======
         // 网络加载图片
         Glide.with(this).load(resetPriceImgUrl).dontAnimate().into(iv_mySellImg);
     }
 
     // 接收传回过来的图片地址
->>>>>>> '测试'
     private void getImgUrl() {
         resetPriceImgUrl = getIntent().getStringExtra("selectedResetPriceImgUrl");
         if (resetPriceImgUrl != null && !resetPriceImgUrl.equals("")) {
@@ -180,15 +138,9 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
         }
     }
 
-<<<<<<< HEAD
-    //请求服务器获取图片信息
-    private void getImgInfo() {
-        //将图片地址截取为图片名称
-=======
     // 请求服务器获取图片信息
     private void getImgInfo() {
         // 将图片地址截取为图片名称
->>>>>>> '测试'
         final String imgName = resetPriceImgUrl.substring(resetPriceImgUrl.indexOf("img"));
         ur = new UserRequest();
         ExecutorService es = Executors.newCachedThreadPool();
@@ -231,21 +183,13 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
                 resetImgPrice();
                 break;
             case R.id.bt_resetSellPrice_quit:
-<<<<<<< HEAD
-                //点击取消改价,恢复原价
-=======
                 // 点击取消改价,恢复原价
->>>>>>> '测试'
                 et_newPrice.setText("");
                 break;
         }
     }
 
-<<<<<<< HEAD
-    //修改价格,传给服务器
-=======
     // 修改价格,传给服务器
->>>>>>> '测试'
     private void resetImgPrice() {
         final int newPrice;
         if (et_newPrice.getText().toString().trim().equals("")) {
@@ -270,20 +214,12 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
                         JSONObject jsonObject = new JSONObject(result);
                         String tag = jsonObject.get("result") + "";
                         if (tag.equals("true")) {
-<<<<<<< HEAD
-                            //修改成功提示框,返回我的上架
-=======
                             // 修改成功提示框,返回我的上架
->>>>>>> '测试'
                             Message msg = new Message();
                             msg.what = RESET_PRICE_SUCCESS;
                             resetWindowHandler.sendMessage(msg);
                         } else {
-<<<<<<< HEAD
-                            //修改失败,请稍后重试
-=======
                             // 修改失败,请稍后重试
->>>>>>> '测试'
                             Message msg = new Message();
                             msg.what = RESET_PRICE_FAIL;
                             resetWindowHandler.sendMessage(msg);
@@ -292,11 +228,7 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
                         e.printStackTrace();
                     }
                 } else {
-<<<<<<< HEAD
-                    //服务器未响应
-=======
                     // 服务器未响应
->>>>>>> '测试'
                     Message msg = new Message();
                     msg.what = RESET_NO_RESPONSE;
                     resetWindowHandler.sendMessage(msg);
@@ -309,12 +241,7 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
 
     }
 
-
-<<<<<<< HEAD
-    //改价成功失败提示
-=======
     // 改价成功失败提示
->>>>>>> '测试'
     private Handler resetWindowHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -353,31 +280,10 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
     private void showSoftColor() {
         UrlTransBitmap trans = new UrlTransBitmap();
         Bitmap bitmap = trans.returnBitMap(resetPriceImgUrl, myContext);
-<<<<<<< HEAD
-        Log.e("------", "转成bitmap: ");
-=======
->>>>>>> '测试'
         if (bitmap != null) {
             Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-<<<<<<< HEAD
-                    //记得判空
-                    if (palette == null) return;
-                    //palette取色不一定取得到某些特定的颜色，这里通过取多种颜色来避免取不到颜色的情况
-                    if (palette.getDarkVibrantColor(Color.TRANSPARENT) != Color.TRANSPARENT) {
-                        createLinearGradientBitmap(palette.getDarkVibrantColor(Color.TRANSPARENT),
-                                palette.getDarkVibrantColor(Color.TRANSPARENT));
-                        //Log.e("---", "第一个: ");
-                    } else if (palette.getDarkMutedColor(Color.TRANSPARENT) != Color.TRANSPARENT) {
-                        createLinearGradientBitmap(palette.getDarkMutedColor(Color.TRANSPARENT),
-                                palette.getDarkMutedColor(Color.TRANSPARENT));
-                        //Log.e("---", "第二个: ");
-                    } else {
-                        createLinearGradientBitmap(palette.getDarkMutedColor(Color.TRANSPARENT),
-                                palette.getDarkMutedColor(Color.TRANSPARENT));
-                        //Log.e("---", "第三个: ");
-=======
                     if (palette == null) return;
                     if (palette.getDarkVibrantColor(Color.TRANSPARENT) != Color.TRANSPARENT) {
                         createLinearGradientBitmap(palette.getDarkVibrantColor(Color.TRANSPARENT),
@@ -388,39 +294,23 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
                     } else {
                         createLinearGradientBitmap(palette.getDarkMutedColor(Color.TRANSPARENT),
                                 palette.getDarkMutedColor(Color.TRANSPARENT));
->>>>>>> '测试'
                     }
                 }
             });
         }
     }
 
-<<<<<<< HEAD
-    //创建线性渐变背景色
-=======
     // 创建线性渐变背景色
->>>>>>> '测试'
     private void createLinearGradientBitmap(int darkColor, int color) {
         int bgColors[] = new int[2];
         bgColors[0] = darkColor;
         bgColors[1] = color;
         if (bgBitmap == null) {
-<<<<<<< HEAD
-            //bgBitmap = Bitmap.createBitmap(relativeLayout.getWidth(), relativeLayout.getHeight(), Bitmap.Config.ARGB_4444);
-            bgBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_4444);
-        }
-
-        if (mCanvas == null) {
-            mCanvas = new Canvas();
-        }
-
-=======
             bgBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_4444);
         }
         if (mCanvas == null) {
             mCanvas = new Canvas();
         }
->>>>>>> '测试'
         if (mPaint == null) {
             mPaint = new Paint();
         }
@@ -429,21 +319,6 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
         LinearGradient gradient = new LinearGradient(0, 0, 0, bgBitmap.getHeight(), bgColors[0], bgColors[1], Shader.TileMode.CLAMP);
         mPaint.setShader(gradient);
         RectF rectF = new RectF(0, 0, bgBitmap.getWidth(), bgBitmap.getHeight());
-<<<<<<< HEAD
-        // mCanvas.drawRoundRect(rectF,16,16,mPaint); 这个用来绘制圆角的哈
-        mCanvas.drawRect(rectF, mPaint);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            relativeLayout.setBackground(new BitmapDrawable(getResources(), bgBitmap));
-            Log.e("-----------", "渐变色设置完成 ");
-        }
-
-    }
-
-
-    //控制头部尾部的显隐
-=======
         mCanvas.drawRect(rectF, mPaint);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             relativeLayout.setBackground(new BitmapDrawable(getResources(), bgBitmap));
@@ -452,7 +327,6 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
 
 
     // 控制头部尾部的显隐
->>>>>>> '测试'
     private void updateHeaderAndFooter() {
         if (isHidden) {
             headerView.animate().translationY(0);
@@ -460,11 +334,7 @@ public class ResetSellImgPrice extends AppCompatActivity implements View.OnClick
         } else {
             headerView.animate().translationY(-headerView.getMeasuredHeight());
             footerView.animate().translationY(footerView.getMeasuredHeight());
-<<<<<<< HEAD
-            //隐藏输入法
-=======
             // 隐藏输入法
->>>>>>> '测试'
             hiddenInputMethod(relativeLayout, this);
         }
         isHidden = !isHidden;

@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-<<<<<<< HEAD
-import android.widget.ImageView;
-=======
->>>>>>> '测试'
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +19,9 @@ import com.xdlr.maskview.mainView.shoppingCart.callBack.OnViewChildDeleteClickLi
 import com.xdlr.maskview.mainView.shoppingCart.callBack.OnViewGroupClickListener;
 import com.xdlr.maskview.mainView.shoppingCart.entity.FrontViewToMove;
 import com.xdlr.maskview.mainView.shoppingCart.entity.ShoppingCartData;
-<<<<<<< HEAD
-import com.xdlr.maskview.util.OvalImageView;
-import com.xdlr.maskview.util.UtilParameter;
-import com.xdlr.maskview.util.ZQRoundOvalImageView;
-=======
+
 import com.xdlr.maskview.util.UtilParameter;
 import com.xdlr.maskview.dao.ZQRoundOvalImageView;
->>>>>>> '测试'
 
 import java.util.List;
 

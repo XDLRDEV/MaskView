@@ -128,15 +128,13 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 choseConfirmImgAgain();
                 break;
             case R.id.bt_confirmImage_confirmNow:
-<<<<<<< HEAD
-                confirmNow();
-=======
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     confirmNowHighAPI();
                 } else {
                     confirmNowLowAPI();
                 }
->>>>>>> '测试'
+
                 break;
             case R.id.confirmImage_finishThisActivity:
                 ConfirmImage.this.finish();
@@ -158,14 +156,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
     }
 
-<<<<<<< HEAD
 
-    //确权图片并向服务器传送数据
-    private void confirmNow() {
-        confirmCount = 1;
-        if (selectedConfirmImageUri.size() > 0) {
-            //根据图片名称判断确权图片是否符合要求
-=======
     // 确权图片(Android10以上,包括10)
     private void confirmNowHighAPI() {
         confirmCount = 1;
@@ -228,7 +219,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
         confirmCount = 1;
         if (selectedConfirmImageUri.size() > 0) {
             // 根据图片名称判断确权图片是否符合要求
->>>>>>> '测试'
+
             for (int i = 0; i < selectedConfirmImageName.size(); i++) {
                 String imgName = selectedConfirmImageName.get(i);
                 if (imgName.startsWith("con-") || imgName.startsWith("tra-")) {
@@ -236,12 +227,8 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
             }
-<<<<<<< HEAD
-            //符合要求,进行水印
-            //File confirmImgFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MaskView确权");
-=======
+
             // 符合要求,进行水印
->>>>>>> '测试'
             File confirmImgFile = new File(SDCardPath + "/MaskView确权");
             if (!confirmImgFile.exists()) {
                 boolean makeFile = confirmImgFile.mkdirs();
@@ -266,10 +253,6 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                             //加水印, 1是确权,2是交易
                             Bitmap myBitmap = robust.robustWatermark(dstbmp, markPhone, UtilParameter.CONFIRM_FLAG);
                             String key = robust.getKey();
-<<<<<<< HEAD
-                            Log.e("---", "key的值为:\n" + key);
-=======
->>>>>>> '测试'
                             String mark_imgName = "con-" + markPhone + "-" + selectedConfirmImageName.get(i);
                             //File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MaskView确权/" + mark_imgName);
                             File file = new File(SDCardPath + "/MaskView确权/" + mark_imgName);
@@ -280,32 +263,16 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                                 myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                                 fos.close();
                                 confirmCount++;
-<<<<<<< HEAD
-                                if (Build.VERSION.SDK_INT >= 29) {
-                                    GetSDPath.scanFile(file, myContext);
-                                } else {
-                                    //发送广播,刷新图库(API<29)
-                                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                    Uri uri = Uri.fromFile(file);
-                                    intent.setData(uri);
-                                    sendBroadcast(intent);
-                                }
-=======
                                 //发送广播,刷新图库(API<29)
                                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                 Uri uri = Uri.fromFile(file);
                                 intent.setData(uri);
                                 sendBroadcast(intent);
->>>>>>> '测试'
                             } else {
                                 //确权失败,请稍后重试
                                 confirmWaitingHandler.sendEmptyMessage(CONFIRM_FAIL);
                                 return;
                             }
-<<<<<<< HEAD
-
-=======
->>>>>>> '测试'
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

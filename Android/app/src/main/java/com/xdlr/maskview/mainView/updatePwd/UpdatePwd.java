@@ -91,11 +91,8 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
                 Intent intent = new Intent(UpdatePwd.this, MaskView.class);
                 intent.putExtra("fragmentID", 3);
                 startActivity(intent);
-<<<<<<< HEAD
-=======
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
                 finish();
->>>>>>> '测试'
                 break;
             case R.id.bt_updatePwd_submit:
                 updatePwd();
@@ -103,16 +100,6 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-
-<<<<<<< HEAD
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            return true;
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
-=======
     //手机自带返回键操作
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -124,6 +111,5 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
             finish();
         }
         return super.dispatchKeyEvent(event);
->>>>>>> '测试'
     }
 }

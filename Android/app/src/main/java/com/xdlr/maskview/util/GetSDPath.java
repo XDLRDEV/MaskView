@@ -1,34 +1,17 @@
 package com.xdlr.maskview.util;
 
-<<<<<<< HEAD
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
-import android.media.MediaScannerConnection;
-=======
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
->>>>>>> '测试'
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Log;
-<<<<<<< HEAD
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.FileNameMap;
-import java.net.URLConnection;
-=======
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
->>>>>>> '测试'
 
 /**
  * 根据API的不同获取SDCard路径
@@ -63,24 +45,11 @@ public class GetSDPath {
                 sdDir = Environment.getExternalStorageDirectory();// 获取SD卡根目录
             }
         } else {
-<<<<<<< HEAD
-            sdDir = Environment.getRootDirectory();// 获取跟目录
-=======
             sdDir = Environment.getRootDirectory();// 获取根目录
->>>>>>> '测试'
         }
         return sdDir.toString();
     }
 
-<<<<<<< HEAD
-    //保存图片
-    public static void scanFile(File file, final Context context){
-        String mimeType = getMimeType(file);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            String fileName = file.getName();
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.MediaColumns.DISPLAY_NAME,fileName);
-=======
     // 保存图片
     public static void scanFile(File file, final Context context) {
         String mimeType = getMimeType(file);
@@ -88,27 +57,18 @@ public class GetSDPath {
             String fileName = file.getName();
             ContentValues values = new ContentValues();
             values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
->>>>>>> '测试'
             values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
             values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM);
             ContentResolver contentResolver = context.getContentResolver();
             Uri uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-<<<<<<< HEAD
-            if(uri == null){
-=======
             if (uri == null) {
->>>>>>> '测试'
                 Log.e("-----", "图片保存失败: ");
                 return;
             }
             try {
                 OutputStream out = contentResolver.openOutputStream(uri);
                 FileInputStream fis = new FileInputStream(file);
-<<<<<<< HEAD
-                FileUtils.copy(fis,out);
-=======
                 FileUtils.copy(fis, out);
->>>>>>> '测试'
                 fis.close();
                 out.close();
                 Log.e("-----", "图片保存成功: ");
@@ -118,15 +78,6 @@ public class GetSDPath {
         }
     }
 
-<<<<<<< HEAD
-
-    public static String getMimeType(File file) {
-        FileNameMap fileNameMap = URLConnection.getFileNameMap();
-        String type = fileNameMap.getContentTypeFor(file.getName());
-        return type;
-    }
-
-=======
     private static String getMimeType(File file) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         return fileNameMap.getContentTypeFor(file.getName());
@@ -258,5 +209,4 @@ public class GetSDPath {
         }
         return file;
     }
->>>>>>> '测试'
 }

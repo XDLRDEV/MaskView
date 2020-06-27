@@ -4,12 +4,8 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Display;
-<<<<<<< HEAD
-=======
 import android.view.Gravity;
->>>>>>> '测试'
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,17 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-<<<<<<< HEAD
-=======
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
-import com.scwang.smartrefresh.layout.header.FalsifyHeader;
-import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
->>>>>>> '测试'
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xdlr.maskview.R;
 import com.xdlr.maskview.dao.UserRequest;
-import com.xdlr.maskview.mainView.MaskView;
 import com.xdlr.maskview.mainView.displayHall.adapter.DisplayHallAdapter;
 import com.xdlr.maskview.mainView.displayHall.beans.DisplayHallListBean;
 import com.xdlr.maskview.util.UtilParameter;
@@ -129,32 +118,20 @@ public class DisplayHall extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-<<<<<<< HEAD
-                        Log.e("-------------", "currentCount: " + currentCount);
-                        Log.e("-------------", "allCount: " + allCount);
-=======
->>>>>>> '测试'
                         if (currentCount < allCount) {
                             adapter.addData(adapter.getItemCount(), getMoreData());
                             refreshLayout.finishLoadMore();
                         } else {
-<<<<<<< HEAD
-                            Toast.makeText(getContext(), "已全部加载!!!", Toast.LENGTH_SHORT).show();
-=======
                             Toast toast = Toast.makeText(getContext(), "已全部加载!!!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
->>>>>>> '测试'
                             refreshLayout.finishLoadMore();
                         }
                     }
                 }, 2000);
             }
         });
-<<<<<<< HEAD
-=======
         refreshlayout.setRefreshFooter(new BallPulseFooter(getActivity()));
->>>>>>> '测试'
     }
 
     //请求数据
@@ -245,10 +222,6 @@ public class DisplayHall extends Fragment {
         adapter = new DisplayHallAdapter(getActivity(), firstShowDatas, screenWidth, screenHeight);
         //RecyclerView绑定适配器
         myRecyclerView.setAdapter(adapter);
-<<<<<<< HEAD
-
-=======
->>>>>>> '测试'
         //refreshlayout.setRefreshFooter(new BallPulseFooter(getActivity()));
     }
 
@@ -277,12 +250,6 @@ public class DisplayHall extends Fragment {
     //加载更多的时候添加的数据
     private List<DisplayHallListBean> getMoreData() {
         List<DisplayHallListBean> list = new ArrayList<>();
-<<<<<<< HEAD
-        //每加载更多一次, 显示1条
-        for (int i = 0; i < 1; i++) {
-            list.add(displayHallDatas.get(currentCount));
-            currentCount++;
-=======
         int laveCount = allCount - currentCount;
         //每加载更多一次, 显示5条
         if (laveCount >= 6) {
@@ -295,7 +262,6 @@ public class DisplayHall extends Fragment {
                 list.add(displayHallDatas.get(currentCount));
                 currentCount++;
             }
->>>>>>> '测试'
         }
         return list;
     }

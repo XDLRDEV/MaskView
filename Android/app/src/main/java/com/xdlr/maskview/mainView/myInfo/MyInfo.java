@@ -41,10 +41,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
-<<<<<<< HEAD
-=======
 import java.util.Date;
->>>>>>> '测试'
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,10 +54,6 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     private TextView tv_birth;
     private TextView tv_phoneNumber;
     private ImageView iv_headView;
-<<<<<<< HEAD
-    private DatePickerDialog datePickerDialog;
-=======
->>>>>>> '测试'
 
     private static int RESULT_LOAD_IMAGE = 1;  //成功选取照片后的返回值
 
@@ -107,11 +100,8 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                 Intent intent = new Intent(myContext, MaskView.class);
                 intent.putExtra("fragmentID", 3);
                 startActivity(intent);
-<<<<<<< HEAD
-=======
                 overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
                 finish();
->>>>>>> '测试'
                 break;
             case R.id.layout_myInfo_nickName:
                 setNickName();
@@ -287,11 +277,6 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                 }).start();
             }
         };
-<<<<<<< HEAD
-        //后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
-        DatePickerDialog dialog = new
-                DatePickerDialog(MyInfo.this, DatePickerDialog.THEME_HOLO_LIGHT, listener, year, month, day);
-=======
 
         //后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
         DatePickerDialog dialog = new
@@ -299,7 +284,6 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
         DatePicker datePicker = dialog.getDatePicker();
         //出生日期最大选当天
         datePicker.setMaxDate(new Date().getTime());
->>>>>>> '测试'
         dialog.show();
     }
 
@@ -347,16 +331,6 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-<<<<<<< HEAD
-    //不允许用自带的返回键
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
-            return true;
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
-=======
     //自带的返回键跳转页面并finish当前页面
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -368,6 +342,5 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
             finish();
         }
         return super.dispatchKeyEvent(event);
->>>>>>> '测试'
     }
 }

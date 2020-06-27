@@ -49,11 +49,7 @@
                 android:button="@android:color/transparent" />
 
 
-<<<<<<< HEAD
-            <com.xdlr.maskview.util.ZQRoundOvalImageView
-=======
             <com.xdlr.maskview.dao.ZQRoundOvalImageView
->>>>>>> '测试'
                 android:id="@+id/item_child_image_shoppingCart"
                 android:layout_width="100dp"
                 android:layout_height="95dp"

@@ -107,11 +107,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-<<<<<<< HEAD
-                        android:layout_weight="0.6"
-=======
                         android:layout_weight="0.7"
->>>>>>> '测试'
                         android:gravity="center"
                         android:orientation="horizontal">
 

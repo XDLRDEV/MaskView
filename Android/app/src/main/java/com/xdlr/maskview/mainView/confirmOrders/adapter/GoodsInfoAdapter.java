@@ -12,11 +12,9 @@ import com.bumptech.glide.Glide;
 import com.xdlr.maskview.R;
 import com.xdlr.maskview.mainView.shoppingCart.entity.ShoppingCartData;
 import com.xdlr.maskview.util.UtilParameter;
-<<<<<<< HEAD
-import com.xdlr.maskview.util.ZQRoundOvalImageView;
-=======
+
 import com.xdlr.maskview.dao.ZQRoundOvalImageView;
->>>>>>> '测试'
+
 
 import java.util.List;
 

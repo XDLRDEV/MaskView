@@ -14,13 +14,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-<<<<<<< HEAD
-import java.util.HashMap;
-=======
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
->>>>>>> '测试'
 import java.util.Map;
 import java.util.UUID;
 
@@ -51,11 +47,9 @@ public class UserRequest {
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
-<<<<<<< HEAD
-            conn.setConnectTimeout(1000);  //响应时间超时设置
-=======
+
             conn.setConnectTimeout(2000);  //响应时间超时设置
->>>>>>> '测试'
+
             // POST方法
             conn.setRequestMethod("POST");
             // 设置通用的请求属性
@@ -185,8 +179,6 @@ public class UserRequest {
     }
 
 
-<<<<<<< HEAD
-=======
     public String uploadImageSetName(File file, String imgName, String RequestURL, String token) {
         String result = "error";
         String BOUNDARY = UUID.randomUUID().toString();//边界标识 随机生成
@@ -254,7 +246,6 @@ public class UserRequest {
     }
 
 
->>>>>>> '测试'
     /**
      * 登录请求---密码登录
      *
@@ -432,8 +423,8 @@ public class UserRequest {
 
 
     /**
-<<<<<<< HEAD
-=======
+     * <<<<<<< HEAD
+     * =======
      * 清空购物车
      *
      * @param token : token
@@ -449,7 +440,7 @@ public class UserRequest {
 
 
     /**
->>>>>>> '测试'
+     * >>>>>>> '测试'
      * 获取展厅信息,不需要登录
      *
      * @param token : token

@@ -8,11 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp">
 
-<<<<<<< HEAD
-        <com.xdlr.maskview.util.ZQRoundOvalImageView
-=======
         <com.xdlr.maskview.dao.ZQRoundOvalImageView
->>>>>>> '测试'
             android:id="@+id/item_child_image_orders"
             android:layout_width="110dp"
             android:layout_height="105dp"
