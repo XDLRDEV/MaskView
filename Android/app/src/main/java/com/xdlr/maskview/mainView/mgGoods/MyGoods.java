@@ -35,8 +35,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xdlr.maskview.R;
+import com.xdlr.maskview.dao.AvertTwoTouch;
 import com.xdlr.maskview.dao.UserRequest;
-import com.xdlr.maskview.mainView.mgGoods.adapter.MyConfirmAdapter;
 import com.xdlr.maskview.mainView.mgGoods.adapter.MyConfirmAdapterHighAPI;
 import com.xdlr.maskview.mainView.mgGoods.adapter.MyConfirmAdapterLowAPI;
 import com.xdlr.maskview.mainView.mgGoods.adapter.MySellAdapter;
@@ -70,25 +70,17 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     private LinearLayout layout_noResponse;
     private RefreshLayout refreshLayout_myConfirm;
     private RefreshLayout refreshLayout_mySell;
-
     private LinearLayout mLvMyConfirmLongClick;
     private LinearLayout mLvMySellLongClick;
     private int confirmRefreshTag = 0;
     private int sellRefreshTag = 0;
     private int mSellClickCount = 0;
-
     private RecyclerView recyclerView_myConfirm;
     private RecyclerView recyclerView_mySell;
-    private Button bt_setImgInfo;
-    private Button bt_underImg;
     private TextView text1;
     private TextView text2;
     private View view1;
     private View view2;
-
-    private LinearLayout layout_myGoods_text_myConfirm;
-    private LinearLayout layout_myGoods_text_mySell;
-
     private Context myContext;
     private AlertDialog underImgWaitingDialog;  //下架图片等待提示框
     private final static int UNDER_WAITING = 0;  //下架等待标志
@@ -96,17 +88,8 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     private int underCount = 0;
     private final static int NO_SELL_IMAGE = 2; //我的上架没有图片标志
     private final static int SHOW_SELL_NO_RESPONSE = 3; //显示上架图片时,服务器未响应标志
-
-
     private File[] imgFiles;
-    private ArrayList<String> imgPath;
     private ArrayList<String> myConfirmImgPath;
-    private ArrayList<String> selectedSellImg;
-    private MyConfirmAdapter myConfirmAdapter;
-    private Button bt_closeSellLongClick;
-    private Button bt_closeUnderLongClick;
-
-
     private MyConfirmAdapterHighAPI myConfirmAdapterHighAPI;
     private MyConfirmAdapterLowAPI myConfirmAdapterLowAPI;
     private MySellAdapter mySellAdapter;
@@ -114,7 +97,6 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     private UserRequest ur;
     private ArrayList<String> mySellImgList;
     private ArrayList<String> selectedUnderImg;
-
     private List<API29ImgBean> mConfirmImgInfoList;
     private List<API29ImgBean> mSelectedConfirmImgInfoList;
     private ArrayList<String> mSelectedConfirmImgPath;
@@ -143,38 +125,33 @@ public class MyGoods extends Fragment implements View.OnClickListener {
         refreshLayout_myConfirm.autoRefresh();
     }
 
-
     private void initView() {
         myContext = getActivity();
         layout_myConfirm = Objects.requireNonNull(getActivity()).findViewById(R.id.layout_myGoods_myConfirm);
         layout_mySell = getActivity().findViewById(R.id.layout_myGoods_mySell);
-
         radioButton_displayHall = getActivity().findViewById(R.id.radioBt_displayHall);
         radioButton_myGoods = getActivity().findViewById(R.id.radioBt_mgGoods);
         radioButton_shoppingCart = getActivity().findViewById(R.id.radioBt_shoppingCart);
         radioButton_mine = getActivity().findViewById(R.id.radioBt_mine);
         bt_confirmImg = getActivity().findViewById(R.id.bt_ConfirmImg);
-        bt_closeSellLongClick = getActivity().findViewById(R.id.bt_myGoods_closeSellLongClick);
-        bt_closeUnderLongClick = getActivity().findViewById(R.id.bt_myGoods_closeUnderLongClick);
-
+        Button bt_closeSellLongClick = getActivity().findViewById(R.id.bt_myGoods_closeSellLongClick);
+        Button bt_closeUnderLongClick = getActivity().findViewById(R.id.bt_myGoods_closeUnderLongClick);
         layout_noConfirmImg = getActivity().findViewById(R.id.layout_myGoods_noConfirmImg);
         layout_noSellImg = getActivity().findViewById(R.id.layout_myGoods_noSellImg);
         layout_noResponse = getActivity().findViewById(R.id.layout_myGoods_showSellImg_noResponse);
         layout_noConfirmImg.setVisibility(View.INVISIBLE);
         layout_noSellImg.setVisibility(View.INVISIBLE);
         layout_noResponse.setVisibility(View.INVISIBLE);
-
         mLvMyConfirmLongClick = getActivity().findViewById(R.id.layout_myGoods_myConfirm_longClick);
         mLvMySellLongClick = getActivity().findViewById(R.id.layout_myGoods_mySell_longClick);
         mLvMyConfirmLongClick.setVisibility(View.INVISIBLE);
         mLvMySellLongClick.setVisibility(View.INVISIBLE);
-
         refreshLayout_myConfirm = getActivity().findViewById(R.id.smartRefresh_myGoods_myConfirm);
         refreshLayout_mySell = getActivity().findViewById(R.id.smartRefresh_myGoods_mySell);
         recyclerView_myConfirm = getActivity().findViewById(R.id.recycler_myGoods_myConfirm);
         recyclerView_mySell = getActivity().findViewById(R.id.recycler_myGoods_mySell);
-        bt_setImgInfo = getActivity().findViewById(R.id.bt_myGoods_setInfo);
-        bt_underImg = getActivity().findViewById(R.id.bt_myGoods_under);
+        Button bt_setImgInfo = getActivity().findViewById(R.id.bt_myGoods_setInfo);
+        Button bt_underImg = getActivity().findViewById(R.id.bt_myGoods_under);
         bt_setImgInfo.setOnClickListener(this);
         bt_underImg.setOnClickListener(this);
         bt_setImgInfo.getBackground().setAlpha(180);
@@ -183,20 +160,16 @@ public class MyGoods extends Fragment implements View.OnClickListener {
         bt_closeUnderLongClick.setOnClickListener(this);
         bt_closeSellLongClick.getBackground().setAlpha(180);
         bt_closeUnderLongClick.getBackground().setAlpha(180);
-
         text1 = getActivity().findViewById(R.id.text_1);
         text2 = getActivity().findViewById(R.id.text_2);
         view1 = getActivity().findViewById(R.id.view_1);
         view2 = getActivity().findViewById(R.id.view_2);
-
         LinearLayout layout_myGoods_text_myConfirm = getActivity().findViewById(R.id.layout_myGoods_text_myConfirm);
         LinearLayout layout_myGoods_text_mySell = getActivity().findViewById(R.id.layout_myGoods_text_mySell);
         layout_mySell.setVisibility(View.INVISIBLE);
-
         ur = new UserRequest();
         mSelectedConfirmImgInfoList = new ArrayList<>();
         mSelectedConfirmImgPath = new ArrayList<>();
-
         layout_myGoods_text_myConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,6 +186,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                 mLvMyConfirmLongClick.setVisibility(View.INVISIBLE);
                 mLvMySellLongClick.setVisibility(View.INVISIBLE);
                 refreshLayout_myConfirm.setEnableRefresh(true);
+                isCheckedRadioButton(true);
                 isShowChecked = false;
                 if (Build.VERSION.SDK_INT >= 29) {
                     myConfirmAdapterHighAPI.setShowCheckBox(false);
@@ -239,6 +213,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                 mLvMyConfirmLongClick.setVisibility(View.INVISIBLE);
                 mLvMySellLongClick.setVisibility(View.INVISIBLE);
                 refreshLayout_mySell.setEnableRefresh(true);
+                isCheckedRadioButton(true);
                 if (mSellClickCount == 0) {
                     mySellRecyclerRefresh();
                     refreshLayout_mySell.autoRefresh();
@@ -491,9 +466,11 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                     }
                 } else {
                     // 我的上架点击某张图片,进入编辑页面,可修改价格和主题
-                    Intent intent = new Intent(getActivity(), ResetSellImgPrice.class);
-                    intent.putExtra("selectedResetPriceImgUrl", imgUrl);
-                    startActivity(intent);
+                    if (AvertTwoTouch.isFastClick()) {
+                        Intent intent = new Intent(getActivity(), ResetSellImgPrice.class);
+                        intent.putExtra("selectedResetPriceImgUrl", imgUrl);
+                        startActivity(intent);
+                    }
                 }
             }
 

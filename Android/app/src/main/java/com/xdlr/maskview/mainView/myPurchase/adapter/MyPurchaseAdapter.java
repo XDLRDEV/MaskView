@@ -48,8 +48,6 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Ba
         notifyDataSetChanged();
     }
 
-
-
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
