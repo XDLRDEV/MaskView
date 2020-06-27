@@ -1,0 +1,47 @@
+syntax = "proto3"; //Protocol Buffers Version
+package proto;
+
+//定义的service
+service CreateUserDemo {
+    rpc CreateUserDemo (CreateUserRequest) returns (CreateUserResponse) {
+    }
+}
+message CreateUserRequest {
+    uint64 userPhone = 1;
+    string date = 2;
+}
+message CreateUserResponse {
+    bool result = 1; //判断符，成功或失败
+}
+
+//确权
+service ConfirmDemo {
+    rpc ConfirmDemo (ConfirmRequest) returns (ConfirmResponse) {
+    }
+}
+message ConfirmRequest {
+    uint64 userPhone = 1;
+    uint64 tag = 2;
+    string imgName = 3;
+    string key = 4;
+}
+message ConfirmResponse {
+    bool result = 1; //判断符，成功或失败
+}
+
+//购买
+service TradeDemo {
+    rpc TradeDemo (TradeRequest) returns (TradeResponse) {
+    }
+}
+message TradeRequest {
+    uint64 purchasePhone = 1;
+    uint64 sellerPhone = 2;
+    uint64 price = 3;
+    uint64 tag = 4;
+    string imgName = 5;
+    string key = 6;
+}
+message TradeResponse {
+    bool result = 1; //判断符，成功或失败
+}
