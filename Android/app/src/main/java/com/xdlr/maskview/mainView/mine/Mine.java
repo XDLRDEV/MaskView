@@ -136,11 +136,7 @@ public class Mine extends Fragment implements View.OnClickListener {
                 tv_myNickName.setText(myNickName[0] + "");
                 if (!myHeadViewPath[0].equals("")) {
                     String url = UtilParameter.IMAGES_IP + myHeadViewPath[0];
-<<<<<<< HEAD
-                    Glide.with(this).load(url).dontAnimate().into(iv_myHeadView);
-=======
                     Glide.with(this).load(url).placeholder(R.mipmap.head).dontAnimate().into(iv_myHeadView);
->>>>>>> '测试'
                 }
                 break;
             }

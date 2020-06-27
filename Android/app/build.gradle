@@ -56,13 +56,10 @@ android {
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
-<<<<<<< HEAD
-                //在这里修改apk文件名，引号内的字符串都可以随便定义
-                outputFileName = "MaskView-v1.0.apk"
-=======
+
                 // 在这里修改apk文件名
                 outputFileName = "MaskView-6.26.apk"
->>>>>>> '测试'
+
             }
     }
 }
@@ -78,37 +75,21 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-32'
     implementation 'com.angel:SWImageView:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-<<<<<<< HEAD
 
     implementation 'com.google.android.material:material:1.1.0'
 
-
-=======
-    implementation 'com.google.android.material:material:1.1.0'
->>>>>>> '测试'
     //图片选择库
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
     //图片加载
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-<<<<<<< HEAD
 
-    //选择图片后显示
-    implementation 'com.github.goyourfly:multi_picture_view:1.3.1'
-    implementation 'com.github.goyourfly:vincent:0.1.1'
-
-    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
-    implementation 'androidx.palette:palette:1.0.0'
-
-    implementation 'com.alibaba:fastjson:1.1.54.android'
-
-=======
     //选择图片后显示
     implementation 'com.github.goyourfly:multi_picture_view:1.3.1'
     implementation 'com.github.goyourfly:vincent:0.1.1'
     implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.alibaba:fastjson:1.1.54.android'
->>>>>>> '测试'
+
     //左滑删除用到的jar包
     compile files('libs/nineoldandroids-2.4.0.jar')
 }

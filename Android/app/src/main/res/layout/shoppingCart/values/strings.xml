@@ -11,11 +11,8 @@
 
     <string name="empty_shoppingCart">购物车是空的,快去添加吧</string>
     <string name="request_fail">请求失败,请重试</string>
-<<<<<<< HEAD
-=======
     <string name="clear_shoppingCart">清空购物车</string>
     <string name="deleteMany_shoppingCart">删除</string>
     <string name="edit_cart">编辑</string>
     <string name="edit_exit">完成</string>
->>>>>>> '测试'
 </resources>

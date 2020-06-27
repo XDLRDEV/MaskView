@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-=======
     xmlns:tools="http://schemas.android.com/tools"
->>>>>>> '测试'
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<<<<<<< HEAD
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#f7f7f7"
-        android:gravity="center"
-        android:text="@string/shopping_cart"
-        android:textColor="#e6000000"
-        android:textSize="20sp" />
-
-=======
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -62,22 +47,18 @@
         android:layout_width="match_parent"
         android:layout_height="0.6dp"
         android:background="#C0C0C0" />
->>>>>>> '测试'
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-<<<<<<< HEAD
-=======
         <ProgressBar
             android:id="@+id/deleteMany_loading"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="20dp" />
 
->>>>>>> '测试'
         <ExpandableListView
             android:id="@+id/cart_expandableListView"
             android:layout_width="match_parent"
@@ -85,10 +66,7 @@
             android:paddingBottom="15dp"
             android:scrollbars="none" />
 
-<<<<<<< HEAD
-=======
         <!--购物车为空提示-->
->>>>>>> '测试'
         <LinearLayout
             android:id="@+id/layout_empty_shoppingCart"
             android:layout_width="wrap_content"
@@ -98,16 +76,6 @@
             android:orientation="vertical">
 
             <ImageView
-<<<<<<< HEAD
-                android:id="@+id/iv_empty_shoppingCart"
-                android:layout_width="220dp"
-                android:layout_height="240dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/tv_shopping_car_image_note"
-=======
                 android:layout_width="220dp"
                 android:layout_height="240dp"
                 android:layout_gravity="center_horizontal"
@@ -115,7 +83,6 @@
                 android:src="@mipmap/empty_cart" />
 
             <TextView
->>>>>>> '测试'
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -126,8 +93,6 @@
 
         </LinearLayout>
 
-<<<<<<< HEAD
-=======
         <!--请求失败提示-->
         <LinearLayout
             android:id="@+id/layout_shoppingCart_noResponse"
@@ -155,7 +120,6 @@
 
         </LinearLayout>
 
->>>>>>> '测试'
 
     </RelativeLayout>
 
@@ -187,52 +151,6 @@
             android:text="@string/all_selected"
             android:textColor="#000000" />
 
-<<<<<<< HEAD
-        <TextView
-            android:id="@+id/cart_selectedCount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.6"
-            android:gravity="center"
-            android:text="@string/init_selected_count"
-            android:textColor="#000000"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selected_money"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/cart_selectedMoney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/init_selected_money"
-                android:textColor="#E8321D"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/cart_bt_countMoney"
-            android:layout_width="119dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bt_count_money"
-            android:text="@string/count_money"
-            android:textColor="@android:color/white" />
-=======
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -326,8 +244,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-
->>>>>>> '测试'
 
     </LinearLayout>
 </LinearLayout>

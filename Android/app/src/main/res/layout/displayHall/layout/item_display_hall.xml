@@ -67,11 +67,7 @@
                             android:id="@+id/item_displayHall_fans"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
-                            android:text="@string/display_hall_count"
-=======
                             android:text="23"
->>>>>>> '测试'
                             android:textColor="#4169E1"
                             android:textSize="16sp" />
 
@@ -88,11 +84,7 @@
                             android:id="@+id/item_displayHall_her_like"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-<<<<<<< HEAD
-                            android:text="@string/display_hall_count"
-=======
                             android:text="102"
->>>>>>> '测试'
                             android:textColor="#4169E1"
                             android:textSize="16sp" />
 

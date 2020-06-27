@@ -2,11 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:width="142dp" android:height="36dp">
         <shape android:shape="rectangle">
-<<<<<<< HEAD
-            <corners android:radius="100dp" />
-=======
             <corners android:radius="80dp" />
->>>>>>> '测试'
             <solid android:color="#1E90FF" />
         </shape>
     </item>

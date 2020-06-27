@@ -15,10 +15,8 @@
     <string name="myGoods_noSellImg">空空如也,快去上架图片吧</string>
     <string name="myGoods_noResponse">服务器开小差啦,刷新试试吧</string>
 
-<<<<<<< HEAD
-=======
 
     <string name="myGoods_closeLongClick">取消</string>
 
->>>>>>> '测试'
+
 </resources>
