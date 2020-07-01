@@ -15,12 +15,6 @@ import java.math.BigInteger;
 public class CopyrightGrpcServer {
     private Server server;
 
-//    public static void main(String[] args) throws IOException, InterruptedException {
-//        final CopyrightGrpcServer server = new CopyrightGrpcServer();
-//        server.start();
-//        server.blockUntilShutdown();
-//    }
-
     public void start() throws IOException {
         System.out.println("start .....");
 
@@ -59,14 +53,6 @@ public class CopyrightGrpcServer {
         }
     }
 
-    /**
-     * Main launches the server from the command line.
-     */
-//   public static void main(String[] args) throws IOException, InterruptedException {
-//        final CopyrightGrpcServer server = new CopyrightGrpcServer();
-//        server.start();
-//        server.blockUntilShutdown();
-//    }
 
     /**
      * 创建客户的grpc

@@ -113,8 +113,6 @@ public class CopyrightDemoBlockServer {
             recordCreditCertAddr(creditCert.getContractAddress());
             return creditCert.getContractAddress();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
             System.out.println(" deploy CreditCert contract failed, error message is  " + e.getMessage());
         }
         return null;
@@ -158,11 +156,7 @@ public class CopyrightDemoBlockServer {
         try {
             String contractAddress = loadCreditCertAddr();
             CopyrightDemo confirm = CopyrightDemo.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
-
             TransactionReceipt dataInfo = confirm.Confirm(userPhone, tag, imgName, key).send();
-
-//        String txId = dataInfo.get().getTransactionHash();
-//        System.out.println("交易哈希是 is:" + txId);
             System.out.println("TEST IS " + dataInfo.getBlockNumber());
             code = 1;
         } catch (Exception e) {
@@ -190,11 +184,7 @@ public class CopyrightDemoBlockServer {
         try {
             String contractAddress = loadCreditCertAddr();
             CopyrightDemo confirm = CopyrightDemo.load(contractAddress, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit));
-
             TransactionReceipt dataInfo = confirm.Trade(purchasePhone, sellerPhone, price, tag, imgName, key).send();
-
-//        String txId = dataInfo.get().getTransactionHash();
-//        System.out.println("交易哈希是 is:" + txId);
             System.out.println("TEST IS " + dataInfo.getBlockNumber());
             code = 1;
         } catch (Exception e) {
