@@ -1,1 +1,1 @@
-This fold is used to storage pictures that the project uses.
+This fold is used to store pictures that the project uses.
