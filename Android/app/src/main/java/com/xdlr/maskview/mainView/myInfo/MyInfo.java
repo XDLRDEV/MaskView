@@ -1,10 +1,5 @@
 package com.xdlr.maskview.mainView.myInfo;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
@@ -20,7 +15,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,11 +22,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
+
 import com.bumptech.glide.Glide;
 import com.xdlr.maskview.R;
 import com.xdlr.maskview.dao.ImageUriUtil;
 import com.xdlr.maskview.dao.UserRequest;
-import com.xdlr.maskview.mainView.MaskView;
+import com.xdlr.maskview.util.GetSDPath;
 import com.xdlr.maskview.util.UtilParameter;
 
 import org.json.JSONException;
@@ -47,18 +46,15 @@ import java.util.concurrent.Executors;
 
 public class MyInfo extends AppCompatActivity implements View.OnClickListener {
 
-    private Context myContext;
+    private Context mContext;
     private AlertDialog alertDialog;
     private TextView tv_myNickName;
     private TextView tv_sex;
     private TextView tv_birth;
     private TextView tv_phoneNumber;
     private ImageView iv_headView;
-
     private static int RESULT_LOAD_IMAGE = 1;  //成功选取照片后的返回值
-
     private UserRequest ur;
-
     private String nickName;
     private String headViewPath;
     private String sex;
@@ -74,7 +70,7 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        myContext = this;
+        mContext = this;
         ur = new UserRequest();
         ImageView iv_finishThisActivity = findViewById(R.id.myInfo_finishThisActivity);
         iv_finishThisActivity.setOnClickListener(this);
@@ -97,11 +93,8 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.myInfo_finishThisActivity:
-                Intent intent = new Intent(myContext, MaskView.class);
-                intent.putExtra("fragmentID", 3);
-                startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
                 finish();
+                overridePendingTransition(0, R.anim.out_to_right);
                 break;
             case R.id.layout_myInfo_nickName:
                 setNickName();
@@ -113,7 +106,7 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                 setBirth();
                 break;
             case R.id.layout_myInfo_headView:
-                intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, RESULT_LOAD_IMAGE);
                 break;
@@ -157,7 +150,7 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                 }
                 if (!headViewPath.equals("")) {
                     String headUrl = UtilParameter.IMAGES_IP + headViewPath;
-                    Glide.with(myContext).load(headUrl).into(iv_headView);
+                    Glide.with(mContext).load(headUrl).into(iv_headView);
                 }
                 break;
             }
@@ -165,8 +158,8 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setNickName() {
-        View view = View.inflate(myContext, R.layout.alert_nick_name, null);
-        alertDialog = new AlertDialog.Builder(myContext).setView(view).setTitle("昵称")
+        View view = View.inflate(mContext, R.layout.alert_nick_name, null);
+        alertDialog = new AlertDialog.Builder(mContext).setView(view).setTitle("昵称")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -194,10 +187,10 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                                                         UtilParameter.myNickName = nickName;
                                                     } else {
                                                         dialog.cancel();
-                                                        Toast.makeText(myContext, "昵称不可用", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(mContext, "昵称不可用", Toast.LENGTH_SHORT).show();
                                                     }
                                                 } else {
-                                                    Toast.makeText(myContext, "服务器未响应,请稍后重试", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(mContext, "服务器未响应,请稍后重试", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -292,29 +285,32 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             final Uri uri = data.getData();
-            DocumentFile documentFile = DocumentFile.fromSingleUri(myContext, uri);
-            if (documentFile != null) {
-                final String myHeadViewName = documentFile.getName(); //文件名称
+            // Android10及以上
+            if (Build.VERSION.SDK_INT >= 29) {
+                DocumentFile documentFile = DocumentFile.fromSingleUri(mContext, uri);
+                // 所选的共享目录下图片名称---名称带类型:xxx.jpg
+                final String imgName = documentFile.getName();
+                // 将选中的共享目录的照片复制到私有目录, 并获取的复制后的私有路径
+                String privatePath = GetSDPath.getPrivatePath(mContext, uri, imgName);
+                // 将私有目录下的照片Path->File,上传
+                final File file = new File(privatePath);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         //上传图片
                         String uploadImageResult = "";
-                        String imgPath = ImageUriUtil.getPhotoPathFromContentUri(myContext, uri);
-                        File file = new File(imgPath);
-                        uploadImageResult = ur.uploadImage(file, UtilParameter.uploadImgUrl, UtilParameter.myToken);
+                        uploadImageResult = ur.uploadImageSetName(file, imgName, UtilParameter.uploadImgUrl, UtilParameter.myToken);
                         if (uploadImageResult.contains("true")) {
                             //图片上传成功,上传数据
-                            final String result = ur.updateMyHeadView(myHeadViewName, UtilParameter.myToken);
+                            final String result = ur.updateMyHeadView(imgName, UtilParameter.myToken);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (result.contains("true")) {
                                         try {
-                                            ContentResolver cr = myContext.getContentResolver();
+                                            ContentResolver cr = mContext.getContentResolver();
                                             Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                                             iv_headView.setImageBitmap(bitmap);
                                         } catch (FileNotFoundException e) {
@@ -326,20 +322,51 @@ public class MyInfo extends AppCompatActivity implements View.OnClickListener {
                         }
                     }
                 }).start();
+            } else {
+                // Android10以下
+                DocumentFile documentFile = DocumentFile.fromSingleUri(mContext, uri);
+                if (documentFile != null) {
+                    final String myHeadViewName = documentFile.getName(); //文件名称
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //上传图片
+                            String uploadImageResult = "";
+                            String imgPath = ImageUriUtil.getPhotoPathFromContentUri(mContext, uri);
+                            File file = new File(imgPath);
+                            uploadImageResult = ur.uploadImage(file, UtilParameter.uploadImgUrl, UtilParameter.myToken);
+                            if (uploadImageResult.contains("true")) {
+                                //图片上传成功,上传数据
+                                final String result = ur.updateMyHeadView(myHeadViewName, UtilParameter.myToken);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (result.contains("true")) {
+                                            try {
+                                                ContentResolver cr = mContext.getContentResolver();
+                                                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                                                iv_headView.setImageBitmap(bitmap);
+                                            } catch (FileNotFoundException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+                }
             }
         }
     }
 
 
-    //自带的返回键跳转页面并finish当前页面
+    // 自带的返回键跳转页面并finish当前页面
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(myContext, MaskView.class);
-            intent.putExtra("fragmentID", 3);
-            startActivity(intent);
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
             finish();
+            overridePendingTransition(0, R.anim.out_to_right);
         }
         return super.dispatchKeyEvent(event);
     }

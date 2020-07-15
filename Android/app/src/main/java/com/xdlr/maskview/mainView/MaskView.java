@@ -13,11 +13,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +50,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
@@ -80,10 +83,10 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mask_view);
+        getScreenSize();
 
         sprfMain = PreferenceManager.getDefaultSharedPreferences(this);
         editorMain = sprfMain.edit();
-
 
         myContext = this;
 
@@ -193,6 +196,17 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
         } else {
             return;
         }
+    }
+
+    /**
+     * 获取屏幕的宽高
+     */
+    private void getScreenSize() {
+        Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        defaultDisplay.getSize(point);
+        UtilParameter.mScreenWidth = point.x;
+        UtilParameter.mScreenHeight = point.y;
     }
 
     private void initFragment() {

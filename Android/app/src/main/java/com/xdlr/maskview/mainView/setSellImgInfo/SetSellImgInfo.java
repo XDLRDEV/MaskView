@@ -9,16 +9,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -207,11 +208,15 @@ public class SetSellImgInfo extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 for (int i = 0; i < mBeanList.size(); i++) {
                     API29ImgBean bean = mBeanList.get(i);
-                    String privatePath = GetSDPath.getPrivatePath(mContext, bean.getImgUri());
-                    String type = privatePath.substring(privatePath.lastIndexOf("."));
-                    File file = new File(privatePath);
+                    DocumentFile documentFile = DocumentFile.fromSingleUri(mContext, bean.getImgUri());
+                    // 所选的共享目录下图片名称---名称带类型:xxx.jpg
+                    final String imgName = documentFile.getName();
+                    // 将选中的共享目录的照片复制到私有目录, 并获取的复制后的私有路径
+                    String privatePath = GetSDPath.getPrivatePath(mContext, bean.getImgUri(), imgName);
+                    // 将私有目录下的照片Path->File,上传
+                    final File file = new File(privatePath);
                     // 上传图片
-                    String uploadImgResult = ur.uploadImageSetName(file, bean.getImgName() + type, UtilParameter.uploadImgUrl, UtilParameter.myToken);
+                    String uploadImgResult = ur.uploadImageSetName(file, imgName, UtilParameter.uploadImgUrl, UtilParameter.myToken);
                     if (uploadImgResult.contains("true")) {
                         // 图片上传成功,上传上架数据
                         view[0] = recyclerView_sellImgList.getChildAt(i);
@@ -220,8 +225,7 @@ public class SetSellImgInfo extends AppCompatActivity implements View.OnClickLis
                         String imgTopic = et_topic.getText().toString().trim();
                         // 消除数字前边的0 (0016->16)
                         String imgPrice = Integer.parseInt(et_price.getText().toString()) + "";
-                        String imageName = bean.getImgName();
-                        String result = ur.sellImage(imageName + type, imgPrice, imgTopic, UtilParameter.myToken);
+                        String result = ur.sellImage(imgName, imgPrice, imgTopic, UtilParameter.myToken);
                         if (result.contains("true")) {
                             waitingTag++;
                         } else {

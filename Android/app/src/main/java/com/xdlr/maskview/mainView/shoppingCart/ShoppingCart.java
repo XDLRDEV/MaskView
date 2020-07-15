@@ -316,19 +316,7 @@ public class ShoppingCart extends Fragment implements View.OnClickListener {
         adapter.setOnChildDeleteClickListener(new OnViewChildDeleteClickListener() {
             @Override
             public void onChildDeleteClick(View view, int groupPosition, int childPosition) {
-                //删除当前选中的item(请求服务器删除数据)
-                //shoppingCartData.getData().get(groupPosition).getGoodsInfo().remove(childPosition);
-                String deletePath = shoppingCartData.getData().get(groupPosition).getGoodsInfo().get(childPosition).getImgPath();
-                String deleteTopic = shoppingCartData.getData().get(groupPosition).getGoodsInfo().get(childPosition).getImgTopic();
-                String deletePrice = shoppingCartData.getData().get(groupPosition).getGoodsInfo().get(childPosition).getImgPrice();
-                //重新获取数据加载
-                //initData();
-                //Toast.makeText(myContext, "删除的第" + groupPosition + "个组的第" + childPosition + "个", Toast.LENGTH_LONG).show();
-                Log.e("----------------", "删除的URL是: " + deletePath);
-                Log.e("----------------", "删除的主题是: " + deleteTopic);
-                Log.e("----------------", "删除的价格是: " + deletePrice);
-
-
+                //请求服务器删除数据,然后刷新UI
                 deleteOneToShoppingCart(groupPosition, childPosition);
             }
         });
