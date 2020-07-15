@@ -18,7 +18,6 @@ public class ShoppingCartData extends RequestResultForShoppingCar {
     public static class DataBean implements Serializable {
 
         private String sellerName;  //卖家姓名
-        private String sellerHeadViewUrl;  //卖家头像url
         private List<GoodsInfoBean> goodsInfo;  //该卖家下用户购物车的每个商品信息
         private boolean isCheck = false;
 
@@ -28,14 +27,6 @@ public class ShoppingCartData extends RequestResultForShoppingCar {
 
         public void setSellerName(String sellerName) {
             this.sellerName = sellerName;
-        }
-
-        public String getSellerHeadViewUrl() {
-            return sellerHeadViewUrl;
-        }
-
-        public void setSellerHeadViewUrl(String sellerHeadViewUrl) {
-            this.sellerHeadViewUrl = sellerHeadViewUrl;
         }
 
         public List<GoodsInfoBean> getGoodsInfo() {

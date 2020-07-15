@@ -156,7 +156,6 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
     //购买图片
     private void purchaseImgNow() {
         purchaseCount = 1;
-
         final File purchaseImgFile;
         if (Build.VERSION.SDK_INT >= 29) {
             purchaseImgFile = new File(myContext.getExternalFilesDir(null).getAbsolutePath());
@@ -231,7 +230,7 @@ public class ConfirmOrders extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //将订单里的图片信息转成传递的字符串集合
+    // 将订单里的图片信息转成传递的字符串集合
     private void transJsonInfo() {
         sendDatas = new ArrayList<>();
         JsonData data;

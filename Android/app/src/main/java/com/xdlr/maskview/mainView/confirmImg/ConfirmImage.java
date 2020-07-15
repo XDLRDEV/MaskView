@@ -1,13 +1,6 @@
 package com.xdlr.maskview.mainView.confirmImg;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
-
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,17 +10,20 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.goyourfly.multi_picture.ImageLoader;
 import com.goyourfly.multi_picture.MultiPictureView;
@@ -47,7 +43,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -176,21 +171,25 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void run() {
                     for (int i = 0; i < selectedConfirmImageUri.size(); i++) {
-                        String privatePath = GetSDPath.getPrivatePath(myContext, selectedConfirmImageUri.get(i));
-                        String type = privatePath.substring(privatePath.lastIndexOf("."));
-                        FileInputStream fis = null;
-                        FileOutputStream fos = null;
+                        DocumentFile documentFile = DocumentFile.fromSingleUri(myContext, selectedConfirmImageUri.get(i));
+                        // 所选的共享目录下图片名称---名称带类型:xxx.jpg
+                        final String imgName = documentFile.getName();
+                        Log.e("---", "图片名称: " + imgName);
+                        // 将选中的共享目录的照片复制到私有目录, 并获取的复制后的私有路径
+                        String privatePath = GetSDPath.getPrivatePath(myContext, selectedConfirmImageUri.get(i), imgName);
+                        FileInputStream fis;
+                        FileOutputStream fos;
                         try {
+                            // 将私有目录下的照片Path->FileInputStream,进行水印
                             fis = new FileInputStream(privatePath);
                             Bitmap bitmap = BitmapFactory.decodeStream(fis);
                             Bitmap dstbmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-                            //加水印, 1是确权,2是交易
+                            // 加水印, 1是确权,2是交易
                             Bitmap myBitmap = robust.robustWatermark(dstbmp, markPhone, UtilParameter.CONFIRM_FLAG);
                             String key = robust.getKey();
-                            String initialName = selectedConfirmImageName.get(i).substring(0, selectedConfirmImageName.get(i).lastIndexOf("."));
-                            String mark_imgName = "con-" + markPhone + "-" + initialName + type;
+                            String mark_imgName = "con-" + markPhone + "-" + imgName;
                             File file = new File(SDCardPath, mark_imgName);
-                            //上传数据到服务器
+                            // 上传数据到服务器
                             String result = ur.sendConfirmInfo(mark_imgName, key, UtilParameter.myToken);
                             if (result.contains("true")) {
                                 fos = new FileOutputStream(file);
@@ -219,7 +218,6 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
         confirmCount = 1;
         if (selectedConfirmImageUri.size() > 0) {
             // 根据图片名称判断确权图片是否符合要求
-
             for (int i = 0; i < selectedConfirmImageName.size(); i++) {
                 String imgName = selectedConfirmImageName.get(i);
                 if (imgName.startsWith("con-") || imgName.startsWith("tra-")) {
@@ -227,7 +225,6 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
             }
-
             // 符合要求,进行水印
             File confirmImgFile = new File(SDCardPath + "/MaskView确权");
             if (!confirmImgFile.exists()) {

@@ -52,13 +52,12 @@ android {
         }
     }
 
-
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
 
                 // 在这里修改apk文件名
-                outputFileName = "MaskView-6.26.apk"
+                outputFileName = "MaskView-7.14.apk"
 
             }
     }

@@ -26,6 +26,8 @@ import com.xdlr.maskview.util.UtilParameter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class LoginByPassword extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_PhoneNum;
@@ -115,10 +117,9 @@ public class LoginByPassword extends AppCompatActivity implements View.OnClickLi
                                         intent.putExtra("fragmentID", 3);
                                         LoginByPassword.this.finish();
                                         startActivity(intent);
-                                        Log.e("", "服务器JSON数据 : " + result);
+
                                     } else {
                                         Toast.makeText(myContext, token, Toast.LENGTH_SHORT).show();
-                                        Log.e("", "服务器JSON数据 : " + result);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

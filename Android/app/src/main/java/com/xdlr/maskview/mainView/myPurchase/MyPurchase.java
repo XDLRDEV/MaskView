@@ -76,11 +76,8 @@ public class MyPurchase extends AppCompatActivity {
         iv_finishThisActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyPurchase.this, MaskView.class);
-                intent.putExtra("fragmentID", 3);
-                startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
                 finish();
+                overridePendingTransition(0, R.anim.out_to_right);
             }
         });
     }
@@ -236,11 +233,8 @@ public class MyPurchase extends AppCompatActivity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(MyPurchase.this, MaskView.class);
-            intent.putExtra("fragmentID", 3);
-            startActivity(intent);
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
             finish();
+            overridePendingTransition(0, R.anim.out_to_right);
         }
         return super.dispatchKeyEvent(event);
     }

@@ -88,11 +88,8 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updatePwd_finishThisActivity:
-                Intent intent = new Intent(UpdatePwd.this, MaskView.class);
-                intent.putExtra("fragmentID", 3);
-                startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
                 finish();
+                overridePendingTransition(0, R.anim.out_to_right);
                 break;
             case R.id.bt_updatePwd_submit:
                 updatePwd();
@@ -104,11 +101,8 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(UpdatePwd.this, MaskView.class);
-            intent.putExtra("fragmentID", 3);
-            startActivity(intent);
-            overridePendingTransition(R.anim.in_from_right, R.anim.out_to_right);
             finish();
+            overridePendingTransition(0, R.anim.out_to_right);
         }
         return super.dispatchKeyEvent(event);
     }

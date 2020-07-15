@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -131,6 +132,7 @@ public class MySaleRecords extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.saleRecords_finishThisActivity:
                 MySaleRecords.this.finish();
+                overridePendingTransition(0, R.anim.out_to_right);
                 break;
         }
     }
@@ -186,4 +188,14 @@ public class MySaleRecords extends AppCompatActivity implements View.OnClickList
             return false;
         }
     });
+
+    // 自带的返回键跳转页面并finish当前页面
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition(0, R.anim.out_to_right);
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

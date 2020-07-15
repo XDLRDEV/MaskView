@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -24,7 +25,7 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1dp"
                     android:layout_weight="1" />
 
                 <com.xdlr.maskview.util.CircleImageView
@@ -36,7 +37,7 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1dp"
                     android:layout_weight="1" />
 
                 <LinearLayout
@@ -58,35 +59,50 @@
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/item_lv_displayHall_fans"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/display_hall_fans" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/item_displayHall_fans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="23"
-                            android:textColor="#4169E1"
-                            android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/display_hall_fans" />
+
+                            <TextView
+                                android:id="@+id/item_displayHall_fans"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="23"
+                                android:textColor="#4169E1"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
 
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp" />
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/item_lv_displayHall_focus"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/display_hall_like" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/item_displayHall_her_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="102"
-                            android:textColor="#4169E1"
-                            android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/display_hall_focus" />
+
+                            <TextView
+                                android:id="@+id/item_displayHall_focus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="102"
+                                android:textColor="#4169E1"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -94,37 +110,62 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1dp"
                     android:layout_weight="5" />
 
-                <Button
-                    android:layout_width="64dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/bt_like"
-                    android:text="@string/display_hall_like"
-                    android:textColor="#f44336"
-                    android:textSize="11sp"
-                    tools:ignore="SmallSp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/bt_item_displayHall_focus"
+                        android:layout_width="64dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/bt_like"
+                        android:text="@string/display_hall_focus"
+                        android:textColor="#f44336"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/bt_item_displayHall_cancelFocus"
+                        android:layout_width="64dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/bt_already_focus"
+                        android:text="@string/display_hall_alreadyFocus"
+                        android:textColor="#808A87"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1dp"
                     android:layout_weight="1" />
-
 
             </LinearLayout>
 
-
-            <com.xdlr.maskview.util.TabGridView
-                android:id="@+id/item_displayHall_gridView"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:horizontalSpacing="2dp"
-                android:verticalSpacing="2dp" />
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/item_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="80dp" />
+
+                <ImageView
+                    android:id="@+id/item_displayHall_sellImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
-
 
     </androidx.cardview.widget.CardView>
 

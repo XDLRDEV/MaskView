@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -132,6 +133,7 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.purchaseRecords_finishThisActivity:
                 MyPurchaseRecords.this.finish();
+                overridePendingTransition(0, R.anim.out_to_right);
                 break;
         }
     }
@@ -162,7 +164,6 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
         });
     }
 
-
     //我的购买记录提示
     private Handler purchaseRecordsHandler = new Handler(new Handler.Callback() {
         @Override
@@ -187,4 +188,14 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
             return false;
         }
     });
+
+    // 自带的返回键跳转页面并finish当前页面
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition(0, R.anim.out_to_right);
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }
