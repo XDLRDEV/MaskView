@@ -1,17 +1,44 @@
 # 媒体素材--项目架构
 
+`DT`是繁星数据平台区块链合约`java`调用端，为服务器端提供数据上链服务。
+
+## 相关工具：
+
+- [gRPC框架](https://grpc.io/) 
+
+  进程间通信服务，GRPC 是谷歌开源的一个高性能、跨语言的 RPC 框架，基于 HTTP2 、Protobuf 和 `Netty 4.x` ; 
+  使用方法方法可参考：
+  [Go GRPC使用](https://www.wingsxdu.com/?p=1204)、 [Java GRPC proto 编译]( https://www.wingsxdu.com/?p=1216)、 [Java Grpc 工程中使用]( https://www.wingsxdu.com/?p=1227)
+
+## 目录结构
+
+其项目架构图如下图所示：
+
+![](./img/project_architecture_diagram.png)
+
+
+
+- `src`：主要工作区
+  * `java`(主程序)
+    - `fisco`:区块链智能合约的Java调用代码
+    - `grpc`:和Go语音交互的代码
+  * `proto`：gRPC的`proto`文件
+  * resources(配置文件)
+    - contract：区块链合约存放目录
+    - 证书、签名文件、配置等
+
 ## 部署流程
 
-#### 区块链底层
+### 1. 区块链层
 
-部署合约：
+1.1 部署合约：
 
 ```shell
 [group:1]> deploy CopyrightDemo 
 contract address: 0x17acfb54a3c64227a983ed54c4763424f06b8a9e
 ```
 
-获得Java class：
+1.2 编译智能合约，获得Java class：
 
 ```shell
 # 切换到fisco/console/目录
@@ -20,15 +47,21 @@ $ cd ~/fisco/console/
 $ ./sol2java.sh org.fisco.bcos.fisco
 ```
 
+### 2. 智能合约
+
+2.1 将`org.fisco.bcos.fisco`下的`class`文件拷贝到项目中，编写调用程序。
+
+2.2 编译`proto文件`
+
 #### gRPC系列之Java服务端
 
-##### 1. proto文件定义
+##### 1. `proto`文件定义
 
 使用 protocol buffers 接口定义语言来定义服务方法，用 protocol buffer 来定义参数和返回类型。客户端和服务端均使用服务定义生成的接口代码。
 
 实现一个`sayHello`方法,`proto`文件编写如下：
 
-```
+```go
 syntax = "proto3";
 
 package proto;
@@ -104,7 +137,7 @@ message HelloResponse {
 
 在控制台输入` mvn compile`。会在`target`下生产一堆文件，在`target/generated-sources/protobuf/java` 和`grpc-java`下会生成我们需要的文件 ，如图所示：
 
-![](D:/我的文档/MyLearning/resources/Go-Learner/gRPC/img/proto_to_java.png)
+![](./img./proto_to_java.png)
 
 ##### 3. 编写Java的服务端
 
@@ -112,7 +145,7 @@ message HelloResponse {
 
 首先创建一个服务端处理消息的类，实现我们服务定义的生成的服务接口，做我们的服务的实际的“工作”。
 
-```
+```java
 	/**
      * 创建客户的grpc
      */
@@ -150,9 +183,11 @@ message HelloResponse {
 
 **注意，要把这个注释掉，不然客户端会报错，说没有实现父类的方法。**
 
-## 部署
+### 3.编译，部署到云上
 
-`linux`命令：
+3.1 利用`moven`插件,将文件打包成`jar`文件
+
+3.2 部署到云服务器：（`linux`命令）
 
 ```shell
 ##根据端口port查进程：
