@@ -245,7 +245,7 @@ public class SetSellImgInfo extends AppCompatActivity implements View.OnClickLis
 
     //上架等待提示框
     private void loadingAlert() {
-        View view = View.inflate(getApplicationContext(), R.layout.sell_waiting_window, null);
+        View view = View.inflate(getApplicationContext(), R.layout.alert_sell_waiting, null);
         waitingAlertDialog = new AlertDialog.Builder(this).setView(view).create();
         waitingAlertDialog.setTitle("正在上传,请耐心等待......");
         waitingAlertDialog.show();

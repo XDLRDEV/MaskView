@@ -5,13 +5,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.xdlr.maskview.R;
 import com.xdlr.maskview.dao.AvertTwoTouch;
 import com.xdlr.maskview.dao.UserRequest;
@@ -45,7 +52,8 @@ import java.util.concurrent.Executors;
 
 public class UserInfoAndSellList extends AppCompatActivity implements View.OnClickListener {
 
-    private CircleImageView mIvHeadView;
+    //private CircleImageView mIvHeadView;
+    private RoundedImageView mIvHeadView;
     private TextView mTvNickName;
     private TextView mTvFansCount;
     private TextView mTvFocusCount;
@@ -68,7 +76,7 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
     private int mGetSelectedItemPosition;
     private UserSellListAdapter mAdapter;
     private AlertDialog mNoResponseAlert;
-
+    private int mRecyclerWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,7 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_user_info_and_sell_list);
 
         initView();
+        getRecyclerWidth();
     }
 
     private void initView() {
@@ -101,7 +110,7 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
 
     private void initData() {
         mGetNickName = getIntent().getStringExtra("userNickName");
-        mGetChildPosition = getIntent().getIntExtra("childPositionDisplayHall", -9);
+        mGetChildPosition = getIntent().getIntExtra("childPositionDisplayHall", -10);
         mGetSelectedItemPosition = getIntent().getIntExtra("selectedItemPositionHerWindow", -9);
         ExecutorService es = Executors.newCachedThreadPool();
         Runnable task = new Runnable() {
@@ -159,7 +168,7 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new UserSellListAdapter(mContext, mSellImgList);
+        mAdapter = new UserSellListAdapter(mContext, mSellImgList, mHeadViewPath, mRecyclerWidth);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -173,7 +182,26 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
                 mTvFocusCount.setText(mFocusCount);
                 if (!mHeadViewPath.equals("")) {
                     String url = UtilParameter.IMAGES_IP + mHeadViewPath;
-                    Glide.with(mContext).load(url).dontAnimate().placeholder(R.mipmap.head).into(mIvHeadView);
+                    /*final int[] width = new int[1];
+                    final int[] height = new int[1];
+                    Glide.with(mContext).asBitmap().load(url).dontAnimate().into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                            width[0] = bitmap.getWidth();
+                            height[0] = bitmap.getHeight();
+                        }
+                    });
+                    // 等比例缩放图片
+                    ViewGroup.LayoutParams item = mIvHeadView.getLayoutParams();
+                    int finalWidth = item.width;
+                    // item宽与图片宽度比
+                    float scale = (float) finalWidth / (float) width[0];
+                    // 设置图片长度比例自适应
+                    int finalHeight = Math.round(height[0] * scale);*/
+                    int width = mIvHeadView.getWidth();
+                    int height = width;
+                    mIvHeadView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    Glide.with(mContext).asBitmap().load(url).dontAnimate().override(width, height).placeholder(R.mipmap.head).into(mIvHeadView);
                 }
                 if (mSellImgList.size() > 0) {
                     showSellImgList();
@@ -195,9 +223,18 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
                     public void run() {
                         Intent intent = new Intent();
                         intent.setAction("action.refreshDisplayHallFansCount");
-                        intent.setAction("action.refreshHerWindowUI");
                         Bundle bundle = new Bundle();
                         bundle.putInt("recyclerChildPosition", mGetChildPosition);
+                        intent.putExtra("msg", bundle);
+                        sendBroadcast(intent);
+                    }
+                }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent();
+                        intent.setAction("action.refreshHerWindowUI");
+                        Bundle bundle = new Bundle();
                         bundle.putInt("windowSelectedItemPosition", mGetSelectedItemPosition);
                         intent.putExtra("msg", bundle);
                         sendBroadcast(intent);
@@ -318,4 +355,11 @@ public class UserInfoAndSellList extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private void getRecyclerWidth() {
+        Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        defaultDisplay.getSize(point);
+        int mScreenWidth = point.x;
+        mRecyclerWidth = mScreenWidth - mRecyclerView.getPaddingStart() - mRecyclerView.getPaddingEnd();
+    }
 }

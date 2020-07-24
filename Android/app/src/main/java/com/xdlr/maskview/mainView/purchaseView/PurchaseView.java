@@ -3,6 +3,7 @@ package com.xdlr.maskview.mainView.purchaseView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -28,11 +29,15 @@ import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
 import com.xdlr.maskview.R;
+import com.xdlr.maskview.dao.GsdFastBlur;
+import com.xdlr.maskview.dao.RenderScriptBlur;
 import com.xdlr.maskview.dao.UrlTransBitmap;
 import com.xdlr.maskview.dao.UserRequest;
 import com.xdlr.maskview.mainView.confirmOrders.ConfirmOrders;
 import com.xdlr.maskview.mainView.login.LoginByPhoneCode;
 import com.xdlr.maskview.mainView.shoppingCart.entity.ShoppingCartData;
+import com.xdlr.maskview.mainView.userInfoAndSellList.UserInfoAndSellList;
+import com.xdlr.maskview.util.CircleImageView;
 import com.xdlr.maskview.util.UtilParameter;
 
 import org.json.JSONException;
@@ -40,6 +45,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -52,6 +58,7 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
     private String selectedImgUrl;
     private View allView, headerView, footerView;
     private PhotoView Iv_showPurchaseImg;
+    private CircleImageView mIvHeadView;
     private TextView tv_imgPrice;
     private TextView tv_imgSellerName;
     private TextView tv_imgTopic;
@@ -62,22 +69,26 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
     private Paint mPaint;
     private int screenWidth;
     private int screenHeight;
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
     private String imgOwner;   //照片持有者昵称
     private String sellDate;  //照片上架日期
     private String imgPrice;  //照片价格
     private String imgTopic;  //照片主题
+    private String mGetHeadViewPath;
+    private int mGetChildPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_view);
-        myContext = this;
+        mContext = this;
         // 先拿到选中的图片URL
         Iv_showPurchaseImg = findViewById(R.id.iv_showPurchaseImg);
         Bundle bundle = getIntent().getExtras();
         selectedImgUrl = bundle.getString("selectedImgUrl");
+        mGetHeadViewPath = bundle.getString("selectedHeadViewPath");
+        mGetChildPosition = bundle.getInt("childPositionDisplayHall");
         // 获取数据
         initData();
         // 点击图片显隐图片信息
@@ -107,7 +118,6 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
                         imgPrice = jsonObject.get("imgPrice") + "";
                         imgTopic = jsonObject.get("imgTopic") + "";
                         sellDate = jsonObject.get("sellDate") + "";
-                        Log.e("-----------------", "run: " + result);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -116,7 +126,6 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
         };
         es.submit(task);
         es.shutdown();
-
         while (true) {
             if (es.isTerminated()) {
                 initView();
@@ -132,6 +141,8 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
         defaultDisplay.getSize(point);
         screenWidth = point.x;
         screenHeight = point.y;
+        mIvHeadView = findViewById(R.id.iv_purchaseView_headView);
+        mIvHeadView.setOnClickListener(this);
         tv_imgPrice = findViewById(R.id.tv_purchase_imgPrice);
         tv_imgSellerName = findViewById(R.id.iv_purchase_sellerName);
         tv_imgTopic = findViewById(R.id.tv_purchase_imgTopic);
@@ -148,15 +159,18 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
         Button bt_addOneToShoppingCart = findViewById(R.id.bt_purchase_addShoppingCart);
         bt_addOneToShoppingCart.setOnClickListener(this);
         //柔和的图片背景色
-        showSoftColor();
+        //showSoftColor();
+        text();
         tv_imgSellerName.setText(imgOwner);
         tv_imgPrice.setText(imgPrice);
         tv_imgTopic.setText(imgTopic);
         tv_sellDate.setText(sellDate);
         //网络加载图片
         Glide.with(this).load(selectedImgUrl).dontAnimate().into(Iv_showPurchaseImg);
+        if (!mGetHeadViewPath.equals(UtilParameter.IMAGES_IP)) {
+            Glide.with(this).load(mGetHeadViewPath).dontAnimate().into(mIvHeadView);
+        }
     }
-
 
     private boolean checkLogin() {
         return UtilParameter.myPhoneNumber != null;
@@ -188,6 +202,12 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
                     addToMyShoppingCart();
                 }
                 break;
+            case R.id.iv_purchaseView_headView:
+                Intent intent = new Intent(mContext, UserInfoAndSellList.class);
+                intent.putExtra("userNickName", imgOwner);
+                intent.putExtra("childPositionDisplayHall", mGetChildPosition);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -207,16 +227,16 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
                                 JSONObject jsonObject = new JSONObject(result);
                                 String tag = jsonObject.get("result") + "";
                                 if (tag.equals("true")) {
-                                    Toast.makeText(myContext, "加入成功", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, "加入成功", Toast.LENGTH_SHORT).show();
                                 } else {
                                     String note = jsonObject.get("data") + "";
-                                    Toast.makeText(myContext, note, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, note, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(myContext, "服务器未响应!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "服务器未响应!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -252,14 +272,14 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
                                 data.add(dataBean);
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("selected_shopping_goods", (Serializable) data);
-                                bundle.putInt("allSelectedPrice", Integer.parseInt(imgPrice));
+                                bundle.putInt("mAllSelectedPrice", Integer.parseInt(imgPrice));
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(myContext, "不能购买自己的图片", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "不能购买自己的图片", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(myContext, "服务器未响应,请稍后再试", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "服务器未响应,请稍后再试", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -278,10 +298,22 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
         isHidden = !isHidden;
     }
 
-    // 让照片外的部分显示与照片结合的柔和色
-    private void showSoftColor() {
+    private void text() {
+        long startTime = System.currentTimeMillis();
         UrlTransBitmap trans = new UrlTransBitmap();
-        Bitmap bitmap = trans.returnBitMap(selectedImgUrl, myContext);
+        Bitmap bitmap = trans.returnBitMap(selectedImgUrl, mContext);
+        long endTime1 = System.currentTimeMillis();
+        Log.e("---", "转bitmap时间: " + (endTime1 - startTime));
+        Bitmap mAll = RenderScriptBlur.blur(mContext, bitmap, 0.06f, 10);
+        allView.setBackground(new BitmapDrawable(getResources(), mAll));
+        long endTime2 = System.currentTimeMillis();
+        Log.e("---", "高斯模糊时间: " + (endTime2 - endTime1));
+    }
+
+    // 让照片外的部分显示与照片结合的柔和色
+    /*private void showSoftColor() {
+        UrlTransBitmap trans = new UrlTransBitmap();
+        Bitmap bitmap = trans.returnBitMap(selectedImgUrl, mContext);
         if (bitmap != null) {
             Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
@@ -298,18 +330,18 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
                         createLinearGradientBitmap(palette.getDarkMutedColor(Color.TRANSPARENT),
                                 palette.getDarkMutedColor(Color.TRANSPARENT));
                     }
-                    /* 获取有活力的颜色 : palette.getVibrantSwatch();
+                    *//* 获取有活力的颜色 : palette.getVibrantSwatch();
                     获取有活力的亮色 : palette.getLightVibrantSwatch();
                     获取柔和的颜色 : palette.getMutedSwatch();
                     获取柔和的亮色 : palette.getLightMutedSwatch();
-                    获取柔和的暗色 : palette.getDarkMutedColor(Color.TRANSPARENT)*/
+                    获取柔和的暗色 : palette.getDarkMutedColor(Color.TRANSPARENT)*//*
                 }
             });
         }
-    }
+    }*/
 
     // 创建线性渐变背景色
-    private void createLinearGradientBitmap(int darkColor, int color) {
+    /*private void createLinearGradientBitmap(int darkColor, int color) {
         int bgColors[] = new int[2];
         bgColors[0] = darkColor;
         bgColors[1] = color;
@@ -331,7 +363,7 @@ public class PurchaseView extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             allView.setBackground(new BitmapDrawable(getResources(), bgBitmap));
         }
-    }
+    }*/
 
     // 设置本机返回键操作
     @Override

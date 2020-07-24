@@ -20,18 +20,18 @@ import java.util.List;
 
 public class GoodsInfoAdapter extends RecyclerView.Adapter<GoodsInfoAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
     private List<ShoppingCartData.DataBean.GoodsInfoBean> datas;
 
     public GoodsInfoAdapter(Context context, List<ShoppingCartData.DataBean.GoodsInfoBean> datas) {
-        this.myContext = context;
+        this.mContext = context;
         this.datas = datas;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.item_child_orders, null);
+        View view = View.inflate(parent.getContext(), R.layout.item_confirm_orders_child_orders, null);
         return new BaseViewHolder(view);
     }
 
@@ -64,7 +64,7 @@ public class GoodsInfoAdapter extends RecyclerView.Adapter<GoodsInfoAdapter.Base
             imgTopic.setText(data.getImgTopic());
             imgPrice.setText(data.getImgPrice());
             String url = UtilParameter.IMAGES_IP + data.getImgPath();
-            Glide.with(myContext).load(url).into(image);
+            Glide.with(mContext).load(url).into(image);
         }
     }
 }

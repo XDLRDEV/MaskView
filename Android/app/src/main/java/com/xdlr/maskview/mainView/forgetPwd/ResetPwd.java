@@ -26,14 +26,14 @@ public class ResetPwd extends AppCompatActivity implements View.OnClickListener 
     private String phoneNum;
     private String phoneCode;
 
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd);
-        myContext = this;
+        mContext = this;
         initView();
 
 
@@ -67,9 +67,9 @@ public class ResetPwd extends AppCompatActivity implements View.OnClickListener 
 
     private void resetPwd() {
         if (!checkPwd()) {
-            Toast.makeText(myContext, "密码格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "密码格式有误", Toast.LENGTH_SHORT).show();
         } else if (!newPwd.equals(confirmNewPwd)) {
-            Toast.makeText(myContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -79,13 +79,13 @@ public class ResetPwd extends AppCompatActivity implements View.OnClickListener 
                         @Override
                         public void run() {
                             if (result.contains("true")) {
-                                Toast.makeText(myContext, "重置成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "重置成功", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ResetPwd.this, LoginByPassword.class);
                                 startActivity(intent);
                             } else if (result.contains("false")) {
-                                Toast.makeText(myContext, "重置失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "重置失败", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(myContext, "服务器未响应", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "服务器未响应", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

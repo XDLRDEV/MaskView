@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +106,8 @@ public class DisplayHallAdapter extends RecyclerView.Adapter<DisplayHallAdapter.
                 if (AvertTwoTouch.isFastClick()) {
                     Intent intent = new Intent(mContext, PurchaseView.class);
                     intent.putExtra("selectedImgUrl", UtilParameter.IMAGES_IP + mBeanList.get(position).getImgPath());
+                    intent.putExtra("selectedHeadViewPath", UtilParameter.IMAGES_IP + mBeanList.get(position).getHeadViewPath());
+                    intent.putExtra("childPositionDisplayHall", position);
                     mContext.startActivity(intent);
                 }
             }

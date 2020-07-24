@@ -69,7 +69,7 @@ public class MyConfirmAdapterHighAPI extends RecyclerView.Adapter<MyConfirmAdapt
     @NonNull
     @Override
     public MyConfirmAdapterHighAPI.BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(mContext, R.layout.item_my_confirm, null);
+        View view = View.inflate(mContext, R.layout.item_my_goods_confirm, null);
         return new BaseViewHolder(view);
     }
 

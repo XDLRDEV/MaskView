@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="confirmImage_title">确权图片</string>
-    <string name="confirmImage_note1">♦&#8194;请选择本机图片进行确权</string>
-    <string name="confirmImage_note2">♦&#8194;确权过的图片不能再次确权</string>
-    <string name="confirmImage_note3">♦&#8194;购买的图片不能确权</string>
-    <string name="confirmImage_choseAgain">重新选择</string>
-    <string name="confirmImage_confirmNow">开始确权</string>
-</resources>

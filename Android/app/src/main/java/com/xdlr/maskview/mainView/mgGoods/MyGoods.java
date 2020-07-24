@@ -75,13 +75,14 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     private int confirmRefreshTag = 0;
     private int sellRefreshTag = 0;
     private int mSellClickCount = 0;
+    private int mConfirmClickCount = 0;
     private RecyclerView recyclerView_myConfirm;
     private RecyclerView recyclerView_mySell;
     private TextView text1;
     private TextView text2;
     private View view1;
     private View view2;
-    private Context myContext;
+    private Context mContext;
     private AlertDialog underImgWaitingDialog;  //下架图片等待提示框
     private final static int UNDER_WAITING = 0;  //下架等待标志
     private final static int UNDER_NO_RESPONSE = 1;  //下架时服务器未响应标志
@@ -126,7 +127,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
-        myContext = getActivity();
+        mContext = getActivity();
         layout_myConfirm = Objects.requireNonNull(getActivity()).findViewById(R.id.layout_myGoods_myConfirm);
         layout_mySell = getActivity().findViewById(R.id.layout_myGoods_mySell);
         radioButton_displayHall = getActivity().findViewById(R.id.radioBt_displayHall);
@@ -188,10 +189,17 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                 refreshLayout_myConfirm.setEnableRefresh(true);
                 isCheckedRadioButton(true);
                 isShowChecked = false;
+                if (mConfirmImgInfoList.size() == 0) {
+                    layout_noConfirmImg.setVisibility(View.VISIBLE);
+                }
                 if (Build.VERSION.SDK_INT >= 29) {
-                    myConfirmAdapterHighAPI.setShowCheckBox(false);
+                    if (myConfirmAdapterHighAPI != null) {
+                        myConfirmAdapterHighAPI.setShowCheckBox(false);
+                    }
                 } else {
-                    myConfirmAdapterLowAPI.setShowCheckBox(false);
+                    if (myConfirmAdapterLowAPI != null) {
+                        myConfirmAdapterLowAPI.setShowCheckBox(false);
+                    }
                 }
                 refreshConfirmUI();
             }
@@ -212,6 +220,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                 layout_mySell.setVisibility(View.VISIBLE);
                 mLvMyConfirmLongClick.setVisibility(View.INVISIBLE);
                 mLvMySellLongClick.setVisibility(View.INVISIBLE);
+
                 refreshLayout_mySell.setEnableRefresh(true);
                 isCheckedRadioButton(true);
                 if (mSellClickCount == 0) {
@@ -243,7 +252,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
             // 本机我的确权图片模糊查询字段
             String confirmKey = "con-" + UtilParameter.myPhoneNumber + "-";
             // Android10以上(包括10)
-            mConfirmImgInfoList = GetSDPath.getAPI29ImgInfo(myContext, confirmKey);
+            mConfirmImgInfoList = GetSDPath.getAPI29ImgInfo(mContext, confirmKey);
             if (mConfirmImgInfoList.size() > 0) {
                 layout_noConfirmImg.setVisibility(View.INVISIBLE);
                 getScreenSize();
@@ -336,12 +345,11 @@ public class MyGoods extends Fragment implements View.OnClickListener {
         }
     }
 
-
     private void showConfirmImg() {
         recyclerView_myConfirm.setVisibility(View.VISIBLE);
         recyclerView_myConfirm.setHasFixedSize(true);
         recyclerView_myConfirm.setItemAnimator(null);
-        GridLayoutManager layoutManager = new GridLayoutManager(myContext, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
         recyclerView_myConfirm.setLayoutManager(layoutManager);
         refreshConfirmUI();
     }
@@ -351,7 +359,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
         recyclerView_mySell.setHasFixedSize(true);
         recyclerView_mySell.setItemAnimator(null);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(myContext, 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView_mySell.setLayoutManager(layoutManager);
         selectedUnderImg = new ArrayList<>();
         refreshMySellUI();
@@ -360,14 +368,14 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     private void refreshConfirmUI() {
         if (Build.VERSION.SDK_INT >= 29) {
             if (myConfirmAdapterHighAPI == null) {
-                myConfirmAdapterHighAPI = new MyConfirmAdapterHighAPI(myContext, mConfirmImgInfoList, screenWidth, screenHeight);
+                myConfirmAdapterHighAPI = new MyConfirmAdapterHighAPI(mContext, mConfirmImgInfoList, screenWidth, screenHeight);
                 recyclerView_myConfirm.setAdapter(myConfirmAdapterHighAPI);
             } else {
                 myConfirmAdapterHighAPI.notifyDataSetChanged();
             }
         } else {
             if (myConfirmAdapterLowAPI == null) {
-                myConfirmAdapterLowAPI = new MyConfirmAdapterLowAPI(myContext, myConfirmImgPath, screenWidth, screenHeight);
+                myConfirmAdapterLowAPI = new MyConfirmAdapterLowAPI(mContext, myConfirmImgPath, screenWidth, screenHeight);
                 recyclerView_myConfirm.setAdapter(myConfirmAdapterLowAPI);
             } else {
                 myConfirmAdapterLowAPI.notifyDataSetChanged();
@@ -377,7 +385,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
 
     private void refreshMySellUI() {
         if (mySellAdapter == null) {
-            mySellAdapter = new MySellAdapter(myContext, mySellImgList, screenWidth, screenHeight);
+            mySellAdapter = new MySellAdapter(mContext, mySellImgList, screenWidth, screenHeight);
             recyclerView_mySell.setAdapter(mySellAdapter);
         } else {
             mySellAdapter.notifyDataSetChanged();
@@ -658,9 +666,9 @@ public class MyGoods extends Fragment implements View.OnClickListener {
     // 设置选中图片的价格和主题
     private void setSelectedImgPrice() {
         if (mSelectedConfirmImgInfoList.size() == 0 && mSelectedConfirmImgPath.size() == 0) {
-            Toast.makeText(myContext, "请选择要上架的图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "请选择要上架的图片", Toast.LENGTH_SHORT).show();
         } else if (mSelectedConfirmImgInfoList.size() > 6 || mSelectedConfirmImgPath.size() > 6) {
-            Toast.makeText(myContext, "每次最多可上架6张图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "每次最多可上架6张图片", Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(getActivity(), SetSellImgInfo.class);
             if (Build.VERSION.SDK_INT >= 29) {
@@ -723,11 +731,11 @@ public class MyGoods extends Fragment implements View.OnClickListener {
 
     // 确认下架提示
     private void isOrNoUnderAlert() {
-        if (selectedUnderImg.size() == 0) {
-            Toast.makeText(myContext, "请选择要下架的图片", Toast.LENGTH_SHORT).show();
+        if (selectedUnderImg == null || selectedUnderImg.size() == 0) {
+            Toast.makeText(mContext, "请选择要下架的图片", Toast.LENGTH_SHORT).show();
             return;
         }
-        AlertDialog isUnderDialog = new AlertDialog.Builder(myContext).
+        AlertDialog isUnderDialog = new AlertDialog.Builder(mContext).
                 setMessage("确认下架" + selectedUnderImg.size() + "张图?")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -752,8 +760,8 @@ public class MyGoods extends Fragment implements View.OnClickListener {
 
     // 显示下架进度提示
     private void loadingAlert() {
-        View view = View.inflate(myContext, R.layout.sell_waiting_window, null);
-        underImgWaitingDialog = new AlertDialog.Builder(myContext).setView(view).create();
+        View view = View.inflate(mContext, R.layout.alert_sell_waiting, null);
+        underImgWaitingDialog = new AlertDialog.Builder(mContext).setView(view).create();
         underImgWaitingDialog.setTitle("正在下架处理,请耐心等待......");
         underImgWaitingDialog.show();
         underImgWaitingDialog.setCanceledOnTouchOutside(false);
@@ -782,7 +790,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
                 }
             } else if (msg.what == UNDER_NO_RESPONSE) {
                 underImgWaitingDialog.cancel();
-                AlertDialog noResponseAlertDialog = new AlertDialog.Builder(myContext).setMessage("服务器未响应,请稍后重试")
+                AlertDialog noResponseAlertDialog = new AlertDialog.Builder(mContext).setMessage("服务器未响应,请稍后重试")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -797,7 +805,7 @@ public class MyGoods extends Fragment implements View.OnClickListener {
 
     // 下架完成后提示
     private void finishAlert() {
-        AlertDialog finishAlertDialog = new AlertDialog.Builder(myContext).setMessage("下架完成")
+        AlertDialog finishAlertDialog = new AlertDialog.Builder(mContext).setMessage("下架完成")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

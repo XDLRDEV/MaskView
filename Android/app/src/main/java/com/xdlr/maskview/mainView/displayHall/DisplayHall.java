@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -200,7 +199,6 @@ public class DisplayHall extends Fragment {
         };
         es.submit(task);
         es.shutdown();
-
         while (true) {
             if (es.isTerminated()) {
                 break;
@@ -261,10 +259,10 @@ public class DisplayHall extends Fragment {
                             mLvLoadingView.setVisibility(View.VISIBLE);
                             mRecyclerView.setVisibility(View.INVISIBLE);
                             getData();
-                            tagRefresh++;
+                            //tagRefresh++;
                         } else {
                             getData();
-                            if (mBeanList.size() > 0) {
+                            if (mBeanList != null && mBeanList.size() > 0) {
                                 mDisplayHallAdapter.replaceAll(getInitialData());
                             }
                             refreshLayout.finishRefresh();
@@ -348,6 +346,7 @@ public class DisplayHall extends Fragment {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == RESPONSE_SUCCESS) {
+                tagRefresh++;
                 mLvLoadingView.setVisibility(View.INVISIBLE);
                 mLvNoResponse.setVisibility(View.INVISIBLE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -357,7 +356,6 @@ public class DisplayHall extends Fragment {
                 mLvLoadingView.setVisibility(View.INVISIBLE);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mLvNoResponse.setVisibility(View.VISIBLE);
-                showRecyclerView();
                 mRefreshLayout.finishRefresh();
             }
             return false;

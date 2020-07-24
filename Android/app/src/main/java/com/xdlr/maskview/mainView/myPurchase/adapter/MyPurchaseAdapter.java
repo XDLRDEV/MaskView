@@ -26,14 +26,14 @@ import java.util.List;
 
 public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
 
     private List<Bitmap> myPurchaseImgBitmap;
     private int screenWidth;
     private int screenHeight;
 
-    public MyPurchaseAdapter(Context myContext, List<Bitmap> myPurchaseImgBitmap, int screenWidth, int screenHeight) {
-        this.myContext = myContext;
+    public MyPurchaseAdapter(Context mContext, List<Bitmap> myPurchaseImgBitmap, int screenWidth, int screenHeight) {
+        this.mContext = mContext;
         this.myPurchaseImgBitmap = myPurchaseImgBitmap;
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
@@ -51,7 +51,7 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Ba
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(myContext, R.layout.item_my_purchase, null);
+        View view = View.inflate(mContext, R.layout.item_my_purchase, null);
         return new BaseViewHolder(view);
     }
 
@@ -64,10 +64,10 @@ public class MyPurchaseAdapter extends RecyclerView.Adapter<MyPurchaseAdapter.Ba
             public void onClick(View v) {
                 if (AvertTwoTouch.isFastClick()) {
                     Bitmap bitmap = myPurchaseImgBitmap.get(position);
-                    Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(myContext.getContentResolver(), bitmap, "IMG"+ Calendar.getInstance().getTime(),null));
-                    Intent intent = new Intent(myContext, OneImageView.class);
+                    Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bitmap, "IMG"+ Calendar.getInstance().getTime(),null));
+                    Intent intent = new Intent(mContext, OneImageView.class);
                     intent.putExtra("myBitmap", uri.toString());
-                    myContext.startActivity(intent);
+                    mContext.startActivity(intent);
                 }
             }
         });

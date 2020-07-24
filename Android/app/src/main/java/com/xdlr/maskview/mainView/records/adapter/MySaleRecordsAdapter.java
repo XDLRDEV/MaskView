@@ -21,11 +21,11 @@ import java.util.List;
 
 public class MySaleRecordsAdapter extends RecyclerView.Adapter<MySaleRecordsAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
     private List<SaleRecordsBean.DataBeanSaleRecords> datas;
 
-    public MySaleRecordsAdapter(Context myContext, List<SaleRecordsBean.DataBeanSaleRecords> datas) {
-        this.myContext = myContext;
+    public MySaleRecordsAdapter(Context mContext, List<SaleRecordsBean.DataBeanSaleRecords> datas) {
+        this.mContext = mContext;
         this.datas = datas;
     }
 
@@ -40,7 +40,7 @@ public class MySaleRecordsAdapter extends RecyclerView.Adapter<MySaleRecordsAdap
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(myContext, R.layout.item_sale_records, null);
+        View view = View.inflate(mContext, R.layout.item_sale_records, null);
         return new BaseViewHolder(view);
     }
 
@@ -71,7 +71,7 @@ public class MySaleRecordsAdapter extends RecyclerView.Adapter<MySaleRecordsAdap
         public void setData(SaleRecordsBean.DataBeanSaleRecords data) {
             //网络加载图片
             String url = UtilParameter.IMAGES_IP + data.getImgPath();
-            Glide.with(myContext).load(url).into(iv_image);
+            Glide.with(mContext).load(url).into(iv_image);
             tv_price.setText(data.getImgPrice() + "");
             //转换时期格式
             String sDate = "";

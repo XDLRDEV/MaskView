@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="updatePwd">更改密码</string>
-    <string name="updatePwd_inputPwd">请输入新密码</string>
-    <string name="updatePwd_confirmPwd">请确认密码</string>
-</resources>

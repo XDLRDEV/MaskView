@@ -134,7 +134,6 @@ public class HerAllFansInfo extends AppCompatActivity implements View.OnClickLis
         mTvHerFansCount.setText("(" + mFansCount + ")");
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(null);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         linearLayoutManager.setReverseLayout(false);
@@ -209,7 +208,6 @@ public class HerAllFansInfo extends AppCompatActivity implements View.OnClickLis
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             finish();
-            // onBackPressed(); 返回操作显示动画
             return true;
         } else {
             return super.dispatchKeyEvent(event);

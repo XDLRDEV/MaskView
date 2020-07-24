@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 public class MyPurchaseRecords extends AppCompatActivity implements View.OnClickListener {
 
     private UserRequest ur;
-    private Context myContext;
+    private Context mContext;
     private PurchaseRecordsBean purchaseRecordsBean;
 
     private RefreshLayout refreshLayout;
@@ -60,7 +60,7 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
 
 
     private void initView() {
-        myContext = this;
+        mContext = this;
         ur = new UserRequest();
 
         ImageView iv_finishThisActivity = findViewById(R.id.purchaseRecords_finishThisActivity);
@@ -115,7 +115,7 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
         myRecyclerView.setItemAnimator(null);
 
         //布局管理器
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(myContext);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         //垂直方向或水平
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         //是否反转
@@ -123,7 +123,7 @@ public class MyPurchaseRecords extends AppCompatActivity implements View.OnClick
         //布局管理器与RecyclerView绑定
         myRecyclerView.setLayoutManager(linearLayoutManager);
         //创建适配器
-        adapter = new MyPurchaseRecordsAdapter(myContext, purchaseRecordsBean.getData());
+        adapter = new MyPurchaseRecordsAdapter(mContext, purchaseRecordsBean.getData());
         //RecyclerView绑定适配器
         myRecyclerView.setAdapter(adapter);
     }

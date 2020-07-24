@@ -29,7 +29,7 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
     private String inputPwd;
     private String confirmPwd;
 
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
 
     @Override
@@ -41,7 +41,7 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
     }
 
     private void initView() {
-        myContext = this;
+        mContext = this;
         ImageView iv_finishThisActivity = findViewById(R.id.updatePwd_finishThisActivity);
         iv_finishThisActivity.setOnClickListener(this);
         et_inputPwd = findViewById(R.id.et_updatePwd_inputPwd);
@@ -53,9 +53,9 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
 
     private void updatePwd() {
         if (!checkPwd()) {
-            Toast.makeText(myContext, "密码格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "密码格式有误", Toast.LENGTH_SHORT).show();
         } else if (!inputPwd.equals(confirmPwd)) {
-            Toast.makeText(myContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -64,7 +64,7 @@ public class UpdatePwd extends AppCompatActivity implements View.OnClickListener
                     if (result.contains("true")) {
                         //修改成功,自动注销,进入登录界面
                         Intent intent = new Intent(UpdatePwd.this, MaskView.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        SPUtils.clear(myContext);
+                        SPUtils.clear(mContext);
                         UtilParameter.myNickName = null;
                         UtilParameter.myPhoneNumber = null;
                         UtilParameter.myPoints = null;

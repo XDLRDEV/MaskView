@@ -30,7 +30,7 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
     private String phoneNum;
     private String phoneCode;
 
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
     private TimeCountDown timeCountDown;
 
@@ -38,7 +38,7 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd_code);
-        myContext = this;
+        mContext = this;
         initView();
     }
 
@@ -74,7 +74,7 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
 
     private void sendCode() {
         if (!checkPhoneNum()) {
-            Toast.makeText(myContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -89,12 +89,12 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
                                 String note = (String) jsonObject.get("note");
                                 if (result.contains("true")) {
                                     timeCountDown.start();
-                                    Toast.makeText(myContext, "验证码已发送", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, "验证码已发送", Toast.LENGTH_LONG).show();
                                     Log.e("--------------", "请求验证码 : " + result);
                                 } else if (note.equals("该手机号未注册")) {
-                                    Toast.makeText(myContext, "跳转注册界面", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, "跳转注册界面", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(myContext, note, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, note, Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -109,7 +109,7 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
     private void jumpResetPwd() {
         phoneCode = et_PhoneCode.getText().toString().trim();
         if (!checkPhoneNum()) {
-            Toast.makeText(myContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -125,9 +125,9 @@ public class ForgetPwdCode extends AppCompatActivity implements View.OnClickList
                                 ForgetPwdCode.this.finish();
                                 startActivity(intent);
                             } else if (result.contains("false")) {
-                                Toast.makeText(myContext, "验证码错误", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "验证码错误", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(myContext, "服务器未响应", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "服务器未响应", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

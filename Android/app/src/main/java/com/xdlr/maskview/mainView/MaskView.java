@@ -64,7 +64,7 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
     private int lastFragment;
 
     private static final int REQUEST_CODE_CHOOSE = 0x13;
-    private Context myContext;
+    private Context mContext;
     private ArrayList<String> selectedImgName;
     private ArrayList<String> selectedImgPath;
 
@@ -88,7 +88,7 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
         sprfMain = PreferenceManager.getDefaultSharedPreferences(this);
         editorMain = sprfMain.edit();
 
-        myContext = this;
+        mContext = this;
 
         iv_confirmImg = findViewById(R.id.bt_ConfirmImg);
         iv_confirmImg.setOnClickListener(this);
@@ -150,9 +150,9 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
      */
     private void checkLoginBefore() {
         ur = new UserRequest();
-        final String phone = (String) SPUtils.get(myContext, "phoneNumber", "");
-        final String password = (String) SPUtils.get(myContext, "password", "");
-        final String code = (String) SPUtils.get(myContext, "code", "");
+        final String phone = (String) SPUtils.get(mContext, "phoneNumber", "");
+        final String password = (String) SPUtils.get(mContext, "password", "");
+        final String code = (String) SPUtils.get(mContext, "code", "");
         if (phone != null && !phone.equals("") && password != null && !password.equals("")) {
             new Thread(new Runnable() {
                 @Override
@@ -337,13 +337,13 @@ public class MaskView extends AppCompatActivity implements RadioGroup.OnCheckedC
                     //获取图片路径 Uri--->Path
                     selectedImgPath = new ArrayList<>();
                     for (Uri uri : selectedImgUri) {
-                        selectedImgPath.add(ImageUriUtil.getPhotoPathFromContentUri(myContext, uri));
+                        selectedImgPath.add(ImageUriUtil.getPhotoPathFromContentUri(mContext, uri));
                     }
                     //获取图片名称
                     selectedImgName = new ArrayList<>();
                     DocumentFile documentFile;
                     for (int i = 0; i < selectedImgUri.size(); i++) {
-                        documentFile = DocumentFile.fromSingleUri(myContext, selectedImgUri.get(i));
+                        documentFile = DocumentFile.fromSingleUri(mContext, selectedImgUri.get(i));
                         if (documentFile != null) {
                             selectedImgName.add(documentFile.getName());
                             Log.e("-----", "图片名称 : " + documentFile.getName());

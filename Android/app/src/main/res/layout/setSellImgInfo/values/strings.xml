@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="setSellImgInfo_text">设置上架信息</string>
-    <string name="setSellImgInfo_confirmSell">确认上架</string>
-    <string name="item_setSellImgInfo_topic">请输入主题</string>
-    <string name="item_setSellImgInfo_price">请输入价格</string>
-</resources>
