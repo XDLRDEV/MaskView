@@ -22,11 +22,11 @@ import java.util.List;
 
 public class MyPurchaseRecordsAdapter extends RecyclerView.Adapter<MyPurchaseRecordsAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
     private List<PurchaseRecordsBean.DataBeanPurchaserRecords> datas;
 
-    public MyPurchaseRecordsAdapter(Context myContext, List<PurchaseRecordsBean.DataBeanPurchaserRecords> datas) {
-        this.myContext = myContext;
+    public MyPurchaseRecordsAdapter(Context mContext, List<PurchaseRecordsBean.DataBeanPurchaserRecords> datas) {
+        this.mContext = mContext;
         this.datas = datas;
     }
 
@@ -41,7 +41,7 @@ public class MyPurchaseRecordsAdapter extends RecyclerView.Adapter<MyPurchaseRec
     @NonNull
     @Override
     public MyPurchaseRecordsAdapter.BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(myContext, R.layout.item_purchase_records, null);
+        View view = View.inflate(mContext, R.layout.item_purchase_records, null);
         return new BaseViewHolder(view);
     }
 
@@ -72,7 +72,7 @@ public class MyPurchaseRecordsAdapter extends RecyclerView.Adapter<MyPurchaseRec
         public void setData(PurchaseRecordsBean.DataBeanPurchaserRecords data) {
             //网络加载图片
             String url = UtilParameter.IMAGES_IP + data.getImgPath();
-            Glide.with(myContext).load(url).into(iv_image);
+            Glide.with(mContext).load(url).into(iv_image);
             tv_price.setText(data.getImgPrice() + "");
             //转换时期格式
             String sDate = "";

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,12 +54,60 @@ public class MineActivity extends AppCompatActivity implements View.OnClickListe
     private UserRequest mRequest;
     private Context mContext;
     private static final int SUCCESS = 0;
+    private boolean isGetData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_mine);
         initView();
+        // 广播接收刷新指定childPosition的UI
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.focus.refreshMineFocusCount");
+        intentFilter.addAction("action.cancelFocus.refreshMineFocusCount");
+        registerReceiver(mRefreshBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!isGetData) {
+            getMyInfo();
+        } else {
+            isGetData = false;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isGetData = false;
+    }
+
+    private BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("action.focus.refreshMineFocusCount")) {
+                int focusCount = Integer.parseInt(mTvFocusCount.getText() + "");
+                int nowFocus = focusCount + 1;
+                mTvFocusCount.setText(nowFocus + "");
+            } else if (action.equals("action.cancelFocus.refreshMineFocusCount")) {
+                int focusCount = Integer.parseInt(mTvFocusCount.getText() + "");
+                int nowFocus = focusCount - 1;
+                mTvFocusCount.setText(nowFocus + "");
+            }
+        }
+    };
+
+    /**
+     * View结束后关闭广播
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mContext.unregisterReceiver(mRefreshBroadcastReceiver);
     }
 
     private void initView() {
@@ -176,6 +226,7 @@ public class MineActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.iv_mine_finish:
                 finish();
+                overridePendingTransition(0, R.anim.out_to_right);
                 break;
         }
     }

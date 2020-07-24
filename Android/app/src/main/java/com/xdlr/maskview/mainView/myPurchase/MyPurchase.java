@@ -45,13 +45,11 @@ public class MyPurchase extends AppCompatActivity {
     private RefreshLayout refreshLayout_myPurchase;
     private RecyclerView recyclerView_myPurchase;
     private LinearLayout layout_noImg;
-
-    private Context myContext;
+    private Context mContext;
     private MyPurchaseAdapter myPurchaseAdapter;
     private int purchaseRefreshTag = 0;
     private File[] mImgFiles;
     private List<Bitmap> mPurchaseImgBitmapList;
-
     private int screenHeight;
     private int screenWidth;
 
@@ -59,9 +57,7 @@ public class MyPurchase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_purchase);
-
-        myContext = this;
-
+        mContext = this;
         initView();
         myPurchaseRecyclerRefresh();
         refreshLayout_myPurchase.autoRefresh();
@@ -87,7 +83,7 @@ public class MyPurchase extends AppCompatActivity {
         mPurchaseImgBitmapList = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= 29) {
             // Android10以上(包括10)
-            List<InputStream> imgInputStreamList = GetSDPath.getImageFile(myContext, "tra-" + UtilParameter.myPhoneNumber);
+            List<InputStream> imgInputStreamList = GetSDPath.getImageFile(mContext, "tra-" + UtilParameter.myPhoneNumber);
             for (int i = 0; i < imgInputStreamList.size(); i++) {
                 mPurchaseImgBitmapList.add(BitmapFactory.decodeStream(imgInputStreamList.get(i)));
             }
@@ -138,15 +134,14 @@ public class MyPurchase extends AppCompatActivity {
         recyclerView_myPurchase.setVisibility(View.VISIBLE);
         recyclerView_myPurchase.setHasFixedSize(true);
         recyclerView_myPurchase.setItemAnimator(null);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(myContext, 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView_myPurchase.setLayoutManager(layoutManager);
         refreshMyPurchaseUI();
     }
 
     private void refreshMyPurchaseUI() {
         if (myPurchaseAdapter == null) {
-            myPurchaseAdapter = new MyPurchaseAdapter(myContext, mPurchaseImgBitmapList, screenWidth, screenHeight);
+            myPurchaseAdapter = new MyPurchaseAdapter(mContext, mPurchaseImgBitmapList, screenWidth, screenHeight);
             recyclerView_myPurchase.setAdapter(myPurchaseAdapter);
         } else {
             myPurchaseAdapter.notifyDataSetChanged();

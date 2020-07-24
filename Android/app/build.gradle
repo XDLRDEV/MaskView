@@ -30,22 +30,6 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
-                    'src/main/res/layout/confirmOrders',
-                    'src/main/res/layout/purchaseView',
-                    'src/main/res/layout/shoppingCart',
-                    'src/main/res/layout/forgetPwd',
-                    'src/main/res/layout/login',
-                    'src/main/res/layout/register',
-                    'src/main/res/layout/displayHall',
-                    'src/main/res/layout/myGoods',
-                    'src/main/res/layout/setSellImgInfo',
-                    'src/main/res/layout/resetSellImgPrice',
-                    'src/main/res/layout/confirmImage',
-                    'src/main/res/layout/mine',
-                    'src/main/res/layout/records',
-                    'src/main/res/layout/myPurchase',
-                    'src/main/res/layout/myInfo',
-                    'src/main/res/layout/updatePwd',
                     'src/main/res/layout',
                     'src/main/res'
             ]
@@ -57,7 +41,7 @@ android {
             variant.outputs.all {
 
                 // 在这里修改apk文件名
-                outputFileName = "MaskView-7.14.apk"
+                outputFileName = "MaskView-7.18.apk"
 
             }
     }
@@ -89,6 +73,8 @@ dependencies {
     implementation 'com.github.chrisbanes.photoview:library:1.2.4'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.alibaba:fastjson:1.1.54.android'
+    // 圆形,...形状ImageView
+    implementation 'com.makeramen:roundedimageview:2.2.1'
 
     //左滑删除用到的jar包
     compile files('libs/nineoldandroids-2.4.0.jar')

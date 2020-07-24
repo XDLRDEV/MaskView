@@ -58,7 +58,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
     private final static int CONFIRM_WAITING = 0;
     private final static int CONFIRM_FAIL = 1;
 
-    private Context myContext;
+    private Context mContext;
 
     private AlertDialog alertDialog;
     private AlertDialog waterMarkWaitingDialog;
@@ -80,14 +80,13 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getData() {
-        SDCardPath = GetSDPath.getSDPath(myContext);
+        SDCardPath = GetSDPath.getSDPath(mContext);
         //水印手机号
         markPhone = UtilParameter.myPhoneNumber;
         //图片Uri
         selectedConfirmImageUri = (List<Uri>) getIntent().getSerializableExtra("selectedConfirmImgUri");
         //图片Path
         selectedConfirmImagePath = getIntent().getStringArrayListExtra("selectedConfirmImgPath");
-        Log.e("----------", "getData: " + selectedConfirmImagePath.size());
         //图片名称
         selectedConfirmImageName = getIntent().getStringArrayListExtra("selectedConfirmImgName");
         if (selectedConfirmImageUri != null) {
@@ -103,7 +102,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        myContext = this;
+        mContext = this;
         Button bt_choseAgain = findViewById(R.id.bt_confirmImage_choseAgain);
         Button bt_startConfirm = findViewById(R.id.bt_confirmImage_confirmNow);
         bt_choseAgain.setOnClickListener(this);
@@ -171,12 +170,12 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void run() {
                     for (int i = 0; i < selectedConfirmImageUri.size(); i++) {
-                        DocumentFile documentFile = DocumentFile.fromSingleUri(myContext, selectedConfirmImageUri.get(i));
+                        DocumentFile documentFile = DocumentFile.fromSingleUri(mContext, selectedConfirmImageUri.get(i));
                         // 所选的共享目录下图片名称---名称带类型:xxx.jpg
                         final String imgName = documentFile.getName();
                         Log.e("---", "图片名称: " + imgName);
                         // 将选中的共享目录的照片复制到私有目录, 并获取的复制后的私有路径
-                        String privatePath = GetSDPath.getPrivatePath(myContext, selectedConfirmImageUri.get(i), imgName);
+                        String privatePath = GetSDPath.getPrivatePath(mContext, selectedConfirmImageUri.get(i), imgName);
                         FileInputStream fis;
                         FileOutputStream fos;
                         try {
@@ -195,7 +194,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                                 fos = new FileOutputStream(file);
                                 myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                                 fos.close();
-                                GetSDPath.scanFile(file, myContext);
+                                GetSDPath.scanFile(file, mContext);
                                 confirmCount++;
                             } else {
                                 //确权失败,请稍后重试
@@ -230,7 +229,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
             if (!confirmImgFile.exists()) {
                 boolean makeFile = confirmImgFile.mkdirs();
                 if (!makeFile) {
-                    Toast.makeText(myContext, "文件夹创建失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "文件夹创建失败", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -295,11 +294,11 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 selectedConfirmImageName.clear();
                 selectedConfirmImageUri = Matisse.obtainResult(data);
                 for (Uri uri : selectedConfirmImageUri) {
-                    selectedConfirmImagePath.add(ImageUriUtil.getPhotoPathFromContentUri(myContext, uri));
+                    selectedConfirmImagePath.add(ImageUriUtil.getPhotoPathFromContentUri(mContext, uri));
                 }
                 DocumentFile documentFile;
                 for (int i = 0; i < selectedConfirmImageUri.size(); i++) {
-                    documentFile = DocumentFile.fromSingleUri(myContext, selectedConfirmImageUri.get(i));
+                    documentFile = DocumentFile.fromSingleUri(mContext, selectedConfirmImageUri.get(i));
                     if (documentFile != null) {
                         selectedConfirmImageName.add(documentFile.getName());
                         Log.e("-----", "图片名称 : " + documentFile.getName());
@@ -321,8 +320,8 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
 
     //显示确权进度提示
     private void loadingAlert() {
-        View view = View.inflate(myContext, R.layout.sell_waiting_window, null);
-        waterMarkWaitingDialog = new AlertDialog.Builder(myContext).setView(view).create();
+        View view = View.inflate(mContext, R.layout.alert_sell_waiting, null);
+        waterMarkWaitingDialog = new AlertDialog.Builder(mContext).setView(view).create();
         waterMarkWaitingDialog.setTitle("正在确权处理,请耐心等待......");
         waterMarkWaitingDialog.show();
         confirmWaitingHandler.sendEmptyMessage(CONFIRM_WAITING);
@@ -349,7 +348,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
                 }
             } else if (msg.what == CONFIRM_FAIL) {
                 waterMarkWaitingDialog.cancel();
-                alertDialog = new AlertDialog.Builder(myContext).setMessage("服务器未响应,请稍后重试")
+                alertDialog = new AlertDialog.Builder(mContext).setMessage("服务器未响应,请稍后重试")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -364,7 +363,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
 
     //图片不符合要求提示
     private void imageNonCompliance() {
-        alertDialog = new AlertDialog.Builder(myContext)
+        alertDialog = new AlertDialog.Builder(mContext)
                 .setTitle("请重新选择")
                 .setMessage("确权和购买的图片不能再次确权")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -378,7 +377,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
 
     //没有选择图片提示
     private void noImage() {
-        alertDialog = new AlertDialog.Builder(myContext)
+        alertDialog = new AlertDialog.Builder(mContext)
                 .setMessage("请选择图片")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -391,7 +390,7 @@ public class ConfirmImage extends AppCompatActivity implements View.OnClickListe
 
     //确权完成后提示
     private void finishAlert() {
-        alertDialog = new AlertDialog.Builder(myContext)
+        alertDialog = new AlertDialog.Builder(mContext)
                 .setMessage("确权完成,共确权" + selectedConfirmImageName.size() + "张图片")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override

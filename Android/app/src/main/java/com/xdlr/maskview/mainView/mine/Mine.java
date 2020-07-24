@@ -7,9 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +45,23 @@ import com.xdlr.maskview.util.UtilParameter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static android.app.Activity.RESULT_OK;
 
 public class Mine extends Fragment implements View.OnClickListener {
 
     private TextView mTvPoints;
     private TextView mTvNickName;
     private ImageView mIvHeadView;
+    private ImageView mIvBackWall;
     private TextView mTvFocusCount;
     private TextView mTvFansCount;
     private String mUserName;
@@ -60,6 +73,7 @@ public class Mine extends Fragment implements View.OnClickListener {
     private UserRequest mRequest;
     private Context mContext;
     private static final int SUCCESS = 0;
+    private static final int RESULT_LOAD_IMAGE = 1;  //成功选取照片后的返回值
 
     @Nullable
     @Override
@@ -124,6 +138,9 @@ public class Mine extends Fragment implements View.OnClickListener {
         mTvPoints = getActivity().findViewById(R.id.tv_mine_points);
         mTvNickName = getActivity().findViewById(R.id.tv_mine_myNickName);
         mIvHeadView = getActivity().findViewById(R.id.mine_myHeadView);
+        mIvHeadView.setOnClickListener(this);
+        mIvBackWall = getActivity().findViewById(R.id.iv_mine_myBackWall);
+        mIvBackWall.setOnClickListener(this);
         mTvFocusCount = getActivity().findViewById(R.id.tv_mine_focusCount);
         mTvFansCount = getActivity().findViewById(R.id.tv_mine_fansCount);
         Button bt_logout = getActivity().findViewById(R.id.bt_mine_logout);
@@ -248,9 +265,21 @@ public class Mine extends Fragment implements View.OnClickListener {
                 intent_focusInfo.putExtra("isMine", true);
                 mContext.startActivity(intent_focusInfo);
                 break;
+            case R.id.mine_myHeadView:
+                // 接收图片大小时间处理
+
+                break;
+            case R.id.iv_mine_myBackWall:
+                Intent intent_updateHeadView = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent_updateHeadView.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent_updateHeadView, RESULT_LOAD_IMAGE);
+                break;
         }
     }
 
+    /**
+     * 注销
+     */
     private void logout() {
         AlertDialog alertDialog = new AlertDialog.Builder(mContext).setMessage("确定要注销吗?")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -273,5 +302,19 @@ public class Mine extends Fragment implements View.OnClickListener {
                 }).create();
         alertDialog.show();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            // 显示头像有问题
+            mIvHeadView.setImageURI(uri);
+            // 更新背景墙
+            mIvBackWall.setImageURI(uri);
+
+        }
+    }
+
 }
 

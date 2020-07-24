@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class UrlTransBitmap {
 
-    public Bitmap returnBitMap(final String url, final Context myContext) {
+    public Bitmap returnBitMap(final String url, final Context mContext) {
 
         final Bitmap[] bm = new Bitmap[1];
         ExecutorService es = Executors.newCachedThreadPool();
@@ -24,7 +24,7 @@ public class UrlTransBitmap {
             @Override
             public void run() {
                 try {
-                    bm[0] = Glide.with(myContext).asBitmap().load(url).dontAnimate().submit().get();
+                    bm[0] = Glide.with(mContext).asBitmap().load(url).dontAnimate().submit().get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

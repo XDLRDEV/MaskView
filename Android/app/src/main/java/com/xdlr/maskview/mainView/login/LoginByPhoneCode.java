@@ -33,14 +33,14 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
     private String phoneNum;
     private String phoneCode;
     private TimeCountDown timeCountDown;
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_by_phone_code);
-        myContext = this;
+        mContext = this;
         initView();
     }
 
@@ -82,7 +82,7 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
 
     private void sendCode() {
         if (!checkPhoneNum()) {
-            Toast.makeText(myContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -98,16 +98,16 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
                                     String tag = jsonObject.get("result") + "";
                                     if (tag.equals("true")) {
                                         timeCountDown.start();
-                                        Toast.makeText(myContext, "验证码已发送", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, "验证码已发送", Toast.LENGTH_LONG).show();
                                         Log.e("--------------", "请求验证码 : " + result);
                                     } else {
-                                        Toast.makeText(myContext, "验证码发送失败", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, "验证码发送失败", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(myContext, "服务器未响应", Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContext, "服务器未响应", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -119,7 +119,7 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
     private void login() {
         phoneCode = et_PhoneCode.getText().toString().trim();
         if (!checkPhoneNum()) {
-            Toast.makeText(myContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "手机号格式有误", Toast.LENGTH_SHORT).show();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -141,8 +141,8 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
                                             startActivity(intent);
                                         } else {
                                             //登录成功后,截取服务器返回的token值
-                                            SPUtils.put(myContext, "phoneNumber", phoneNum);
-                                            SPUtils.put(myContext, "code", phoneCode);
+                                            SPUtils.put(mContext, "phoneNumber", phoneNum);
+                                            SPUtils.put(mContext, "code", phoneCode);
                                             UtilParameter.myToken = jsonObject.get("token") + "";
                                             UtilParameter.myPoints = jsonObject.get("points") + "";
                                             UtilParameter.myPhoneNumber = phoneNum;
@@ -153,13 +153,13 @@ public class LoginByPhoneCode extends AppCompatActivity implements View.OnClickL
                                             startActivity(intent);
                                         }
                                     } else {
-                                        Toast.makeText(myContext, note, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, note, Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(myContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

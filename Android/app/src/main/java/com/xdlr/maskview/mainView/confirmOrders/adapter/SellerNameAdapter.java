@@ -16,19 +16,19 @@ import java.util.List;
 
 public class SellerNameAdapter extends RecyclerView.Adapter<SellerNameAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
     private List<ShoppingCartData.DataBean> datas;
     private GoodsInfoAdapter goodsInfoAdapter;
 
     public SellerNameAdapter(Context context, List<ShoppingCartData.DataBean> datas) {
-        this.myContext = context;
+        this.mContext = context;
         this.datas = datas;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.item_group_orders, null);
+        View view = View.inflate(parent.getContext(), R.layout.item_confirm_orders_group_orders, null);
         return new BaseViewHolder(view);
     }
 
@@ -58,7 +58,7 @@ public class SellerNameAdapter extends RecyclerView.Adapter<SellerNameAdapter.Ba
             goodsInfoRecyclerView.setItemAnimator(null);
 
             //布局管理器
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(myContext);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
             //垂直方向或水平
             linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
             //是否反转
@@ -66,7 +66,7 @@ public class SellerNameAdapter extends RecyclerView.Adapter<SellerNameAdapter.Ba
             //布局管理器与RecyclerView绑定
             goodsInfoRecyclerView.setLayoutManager(linearLayoutManager);
             //创建适配器
-            goodsInfoAdapter = new GoodsInfoAdapter(myContext, data.getGoodsInfo());
+            goodsInfoAdapter = new GoodsInfoAdapter(mContext, data.getGoodsInfo());
             //RecyclerView绑定适配器
             goodsInfoRecyclerView.setAdapter(goodsInfoAdapter);
         }

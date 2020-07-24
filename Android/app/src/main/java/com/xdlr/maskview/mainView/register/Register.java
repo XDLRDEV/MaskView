@@ -32,14 +32,14 @@ public class Register extends AppCompatActivity {
     private String confirmPwd;
     private String phoneNum;
 
-    private Context myContext;
+    private Context mContext;
     private UserRequest ur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        myContext = this;
+        mContext = this;
         initView();
     }
 
@@ -61,9 +61,9 @@ public class Register extends AppCompatActivity {
 
     private void register() {
         if (!checkPwd()) {
-            Toast.makeText(myContext, "密码格式有误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "密码格式有误", Toast.LENGTH_SHORT).show();
         } else if (!inputPwd.equals(confirmPwd)) {
-            Toast.makeText(myContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "两次密码不一致", Toast.LENGTH_SHORT).show();
         } else {
             //1.注册,数据入库 2.手机号密码自动登录
             ExecutorService es = Executors.newCachedThreadPool();
@@ -79,17 +79,17 @@ public class Register extends AppCompatActivity {
                                     JSONObject jsonObject = new JSONObject(result);
                                     String tag = jsonObject.get("result") + "";
                                     if (tag.equals("true")) {
-                                        Toast.makeText(myContext, "注册成功", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
                                         //2.手机号密码自动登录
                                         autoLogin();
                                     } else {
-                                        Toast.makeText(myContext, "注册失败", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "注册失败", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(myContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -118,8 +118,8 @@ public class Register extends AppCompatActivity {
                     UtilParameter.myPoints = points;
                     UtilParameter.myPhoneNumber = userPhone;
                     UtilParameter.myNickName = userName;
-                    SPUtils.put(myContext, "phoneNumber", userPhone);
-                    SPUtils.put(myContext, "password", confirmPwd);
+                    SPUtils.put(mContext, "phoneNumber", userPhone);
+                    SPUtils.put(mContext, "password", confirmPwd);
                     Intent intent = new Intent(Register.this, MaskView.class);
                     intent.putExtra("fragmentID", 3);
                     startActivity(intent);

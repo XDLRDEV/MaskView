@@ -19,14 +19,14 @@ import java.util.ArrayList;
 
 public class MySellAdapter extends RecyclerView.Adapter<MySellAdapter.BaseViewHolder> {
 
-    private Context myContext;
+    private Context mContext;
     private ArrayList<String> mySellImgList;
     private boolean showCheckBox;
     private int screenWidth;
     private int screenHeight;
 
-    public MySellAdapter(Context myContext, ArrayList<String> mySellImgList, int screenWidth, int screenHeight) {
-        this.myContext = myContext;
+    public MySellAdapter(Context mContext, ArrayList<String> mySellImgList, int screenWidth, int screenHeight) {
+        this.mContext = mContext;
         this.mySellImgList = mySellImgList;
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
@@ -43,7 +43,7 @@ public class MySellAdapter extends RecyclerView.Adapter<MySellAdapter.BaseViewHo
     @NonNull
     @Override
     public MySellAdapter.BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(myContext, R.layout.item_my_sell, null);
+        View view = View.inflate(mContext, R.layout.item_my_goods_sell, null);
         return new BaseViewHolder(view);
     }
 
@@ -143,7 +143,7 @@ public class MySellAdapter extends RecyclerView.Adapter<MySellAdapter.BaseViewHo
         }
 
         public void setData(String imgPath) {
-            Glide.with(myContext).load(imgPath).into(item_mySellImg);
+            Glide.with(mContext).load(imgPath).into(item_mySellImg);
         }
     }
 }

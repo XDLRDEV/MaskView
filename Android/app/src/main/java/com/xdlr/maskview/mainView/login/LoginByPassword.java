@@ -34,7 +34,7 @@ public class LoginByPassword extends AppCompatActivity implements View.OnClickLi
     private EditText et_Pwd;
     private String phoneNumber;
     private String password;
-    private Context myContext;
+    private Context mContext;
 
     private UserRequest ur;
 
@@ -42,7 +42,7 @@ public class LoginByPassword extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_by_password);
-        myContext = this;
+        mContext = this;
         initView();
     }
 
@@ -85,9 +85,9 @@ public class LoginByPassword extends AppCompatActivity implements View.OnClickLi
         phoneNumber = et_PhoneNum.getText().toString().trim();
         password = et_Pwd.getText().toString().trim();
         if (!checkPhoneNum()) {
-            Toast.makeText(myContext, "手机号格式有误", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "手机号格式有误", Toast.LENGTH_LONG).show();
         } else if (!checkPwd()) {
-            Toast.makeText(myContext, "密码格式有误", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "密码格式有误", Toast.LENGTH_LONG).show();
         } else {
             //访问网络放在独立线程中(不是主线程)
             new Thread(new Runnable() {
@@ -111,21 +111,21 @@ public class LoginByPassword extends AppCompatActivity implements View.OnClickLi
                                         UtilParameter.myPoints = points;
                                         UtilParameter.myPhoneNumber = phoneNumber;
                                         UtilParameter.myNickName = userName;
-                                        SPUtils.put(myContext, "phoneNumber", phoneNumber);
-                                        SPUtils.put(myContext, "password", password);
+                                        SPUtils.put(mContext, "phoneNumber", phoneNumber);
+                                        SPUtils.put(mContext, "password", password);
                                         Intent intent = new Intent(LoginByPassword.this, MaskView.class);
                                         intent.putExtra("fragmentID", 3);
                                         LoginByPassword.this.finish();
                                         startActivity(intent);
 
                                     } else {
-                                        Toast.makeText(myContext, token, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, token, Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(myContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "服务器未响应,请稍后再试!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
