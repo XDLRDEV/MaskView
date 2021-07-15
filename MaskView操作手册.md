@@ -63,7 +63,7 @@ String contractAddress = "0x162da7a679bbe9d8015e6d4d32598ecb4f0966a8";
 找到目录：gorm_mysql/init.go
 
 修改MySQL数据库的配置
-db, err = gorm.Open("mysql", "test:aA!123456@tcp(49.234.37.254:3306)/starry?charset=utf8&parseTime=True&loc=Local")
+db, err = gorm.Open("mysql", "test:密码@tcp(IP:3306)/starry?charset=utf8&parseTime=True&loc=Local")
 ```
 
 2. `go` 端到`Java`端的通信`IP`
